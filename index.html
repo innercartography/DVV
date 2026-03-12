@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DVV — Spatial Knowledge Graph</title>
+  <meta name="description" content="Dunsmuir Visionary Village — An interactive 3D knowledge graph connecting history, land, and future vision.">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <canvas id="graph-canvas"></canvas>
+
+  <!-- Topology Selector -->
+  <div id="topology-selector">
+    <button class="topo-btn active" data-topology="centralized">
+      <span class="topo-icon">◉</span>
+      <span class="topo-label">Centralized</span>
+      <span class="topo-desc">One core idea, everything orbits</span>
+    </button>
+    <button class="topo-btn" data-topology="decentralized">
+      <span class="topo-icon">◈</span>
+      <span class="topo-label">Decentralized</span>
+      <span class="topo-desc">Theme clusters on Fibonacci sphere</span>
+    </button>
+    <button class="topo-btn" data-topology="distributed">
+      <span class="topo-icon">◇</span>
+      <span class="topo-label">Distributed</span>
+      <span class="topo-desc">Peer connections, no hierarchy</span>
+    </button>
+  </div>
+
+  <!-- Category Legend -->
+  <div id="category-legend">
+    <div class="legend-item" data-category="history">
+      <span class="legend-dot history"></span>
+      <span>History</span>
+    </div>
+    <div class="legend-item" data-category="land">
+      <span class="legend-dot land"></span>
+      <span>Land</span>
+    </div>
+    <div class="legend-item" data-category="future">
+      <span class="legend-dot future"></span>
+      <span>Future</span>
+    </div>
+  </div>
+
+  <!-- Detail Panel -->
+  <div id="detail-panel" class="hidden">
+    <button id="detail-close">✕</button>
+    <div id="detail-type-badge"></div>
+    <h2 id="detail-title"></h2>
+    <p id="detail-description"></p>
+    <div id="detail-metadata"></div>
+    <div id="detail-connections">
+      <h3>Connections</h3>
+      <ul id="detail-connections-list"></ul>
+    </div>
+  </div>
+
+  <!-- Title Overlay -->
+  <div id="title-overlay">
+    <div class="title-sub">Spatial Knowledge Graph</div>
+    <h1><span class="cyan">Dunsmuir</span> <span class="gold">Visionary</span> Village</h1>
+    <div class="title-hint">Click nodes to explore · Scroll to zoom · Drag to rotate</div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

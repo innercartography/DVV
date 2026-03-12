@@ -1,0 +1,329 @@
+{
+  "meta": {
+    "title": "Dunsmuir Visionary Village",
+    "subtitle": "Spatial Knowledge Graph",
+    "version": "1.0",
+    "nodeCount": 30,
+    "categories": {
+      "history": "Ghosts, stories, legends, and incidents that shaped this place",
+      "land": "Current state, statistics, uses, and real conditions",
+      "future": "DVV vision — where art and technology intersect"
+    }
+  },
+  "nodes": [
+    {
+      "id": "hotel-dunsmuir",
+      "type": "property",
+      "category": "history",
+      "label": "Hotel Dunsmuir",
+      "description": "Built in the 1920s by lumber baron Abner Weed as 'Dunsmuir's Finest.' Burned in a devastating fire, then rebuilt in 1947 around the original brick skeleton in Art Deco style. The building that refused to die.",
+      "metadata": { "built": "1920s", "rebuilt": "1947", "style": "Art Deco", "floors": 3, "rooms": 43 }
+    },
+    {
+      "id": "thirteen-ghosts",
+      "type": "legend",
+      "category": "history",
+      "label": "The 13 Friendly Ghosts",
+      "description": "Locals and guests report 13 distinct spectral presences throughout the hotel. Cold spots in the hallways. A woman in white on the third floor. Piano music from empty rooms. They're considered friendly — part of the family.",
+      "metadata": { "reported_sightings": "ongoing", "most_active_floor": 3, "temperament": "friendly" }
+    },
+    {
+      "id": "golden-age-visitors",
+      "type": "event",
+      "category": "history",
+      "label": "Hollywood's Secret Stop",
+      "description": "During the golden age, Hollywood royalty traveled the Southern Pacific railroad north through Dunsmuir. Clark Gable, Errol Flynn, Bing Crosby, Marilyn Monroe, JFK — they all stayed at Hotel Dunsmuir. The hotel bar was legendary.",
+      "metadata": { "era": "1930s-1960s", "visitors": ["Clark Gable", "Errol Flynn", "Bing Crosby", "Marilyn Monroe", "Johnny Cash", "JFK"] }
+    },
+    {
+      "id": "babe-ruth-1924",
+      "type": "event",
+      "category": "history",
+      "label": "Babe Ruth's 1924 Game",
+      "description": "In 1924, Babe Ruth played an exhibition baseball game in Dunsmuir. The whole town turned out. A moment when the biggest name in America stood in this tiny railroad town — a collision of scales that defines Dunsmuir's character.",
+      "metadata": { "year": 1924, "sport": "baseball", "type": "exhibition" }
+    },
+    {
+      "id": "california-theatre",
+      "type": "property",
+      "category": "history",
+      "label": "California Theatre",
+      "description": "Built in 1926 with over 800 seats, a deep stage, ballroom upstairs, and diamond-shaped portal windows. A creek runs directly under the stage — natural AC. Went from vaudeville to cinema to abandonment. Willy Wonka energy — magical and slightly haunted.",
+      "metadata": { "built": 1926, "capacity": "800+", "features": ["deep stage", "ballroom", "creek under stage", "diamond portal windows"] }
+    },
+    {
+      "id": "great-fire",
+      "type": "event",
+      "category": "history",
+      "label": "The Great Fire",
+      "description": "The original Hotel Dunsmuir burned, leaving only its brick skeleton standing. Rather than demolish, they chose to rebuild around the bones — wrapping new Art Deco skin around the old structure. The fire didn't destroy the hotel; it transformed it.",
+      "metadata": { "era": "1940s", "survived": "brick skeleton", "result": "Art Deco rebuild" }
+    },
+    {
+      "id": "railroad-mythology",
+      "type": "legend",
+      "category": "history",
+      "label": "Railroad Town Origins",
+      "description": "Dunsmuir exists because of the railroad. Southern Pacific built the line through the Sacramento River canyon. The town was a water stop, then a crew change point, then a community. When diesel replaced steam, the town's reason for being evaporated. But the bones remained.",
+      "metadata": { "railroad": "Southern Pacific", "function": "water stop / crew change", "decline": "diesel era" }
+    },
+    {
+      "id": "abner-weed",
+      "type": "person",
+      "category": "history",
+      "label": "Abner Weed",
+      "description": "Lumber baron who built the original Hotel Dunsmuir and helped shape the town's identity. His vision of a grand hotel in a tiny mountain town set the tone — always building bigger than the moment required, trusting that the future would fill the space.",
+      "metadata": { "role": "founder / lumber baron", "legacy": "Hotel Dunsmuir" }
+    },
+    {
+      "id": "mt-shasta-spirituality",
+      "type": "legend",
+      "category": "history",
+      "label": "Mt. Shasta's Sacred Pull",
+      "description": "Mt. Shasta has been a spiritual center for centuries — Native American sacred site, Lemurian legends, New Age pilgrimage destination. Its gravitational pull on seekers and visionaries is part of why Dunsmuir feels like a place where different realities overlap.",
+      "metadata": { "elevation_ft": 14179, "traditions": ["Native American", "Lemurian", "New Age"], "visibility": "visible from Dunsmuir" }
+    },
+    {
+      "id": "vaudeville-era",
+      "type": "event",
+      "category": "history",
+      "label": "Vaudeville to Silence",
+      "description": "The California Theatre hosted traveling vaudeville acts, connecting this remote mountain town to national culture. Then came cinema, then television, then nothing. The theatre went dark. But the acoustics never changed — the creek still sings under the stage.",
+      "metadata": { "era": "1926-1960s", "evolution": "vaudeville → cinema → abandoned" }
+    },
+
+    {
+      "id": "dunsmuir-town",
+      "type": "place",
+      "category": "land",
+      "label": "Dunsmuir, California",
+      "description": "Population 1,707. Siskiyou County. A linear town stretched along the Sacramento River canyon and the railroad tracks. National Historic District since 1982. The town preserved its 1920s architecture by accident — by being forgotten.",
+      "metadata": { "population": 1707, "county": "Siskiyou", "historic_district": 1982, "elevation_ft": 2280 }
+    },
+    {
+      "id": "water-quality",
+      "type": "fact",
+      "category": "land",
+      "label": "Purest Water in America",
+      "description": "Dunsmuir's municipal water comes from volcanic snowmelt filtered through Mt. Shasta's lava tubes. It has been rated among the purest municipal water supplies in the United States. You can drink from the tap and taste the mountain.",
+      "metadata": { "source": "Mt. Shasta volcanic snowmelt", "filtration": "natural lava tube", "rating": "among purest in US" }
+    },
+    {
+      "id": "amtrak-connection",
+      "type": "fact",
+      "category": "land",
+      "label": "Coast Starlight Daily",
+      "description": "Amtrak's Coast Starlight stops in Dunsmuir daily on its LA-to-Seattle route. One of the most scenic train rides in America passes directly through town. SF to Dunsmuir: ~7 hours by train, a journey that itself could be an experience.",
+      "metadata": { "route": "LA → Seattle", "frequency": "daily", "sf_travel_time": "~7 hours", "scenic_rating": "among most scenic in US" }
+    },
+    {
+      "id": "property-values",
+      "type": "fact",
+      "category": "land",
+      "label": "Property Economics",
+      "description": "Commercial properties in Dunsmuir trade at a fraction of urban costs. A historic building that would cost $10M+ in SF can be acquired for under $500K. The gap between current value and potential value is the opportunity — but only if activation is real, not speculative.",
+      "metadata": { "comparison": "10-20x cheaper than urban equivalents", "risk": "low liquidity", "opportunity": "value gap" }
+    },
+    {
+      "id": "climate-resilience",
+      "type": "fact",
+      "category": "land",
+      "label": "Climate & Resilience",
+      "description": "Dunsmuir sits at 2,280 ft in a forested river canyon. Mild summers, snowy winters. Wildfire risk is real but manageable with modern forestry. The location offers climate refuge compared to extreme heat zones. Clean air, clean water, four seasons.",
+      "metadata": { "elevation_ft": 2280, "climate": "4 seasons", "risks": ["wildfire"], "advantages": ["clean air", "clean water", "climate refuge"] }
+    },
+    {
+      "id": "current-decay",
+      "type": "fact",
+      "category": "land",
+      "label": "State of Decay",
+      "description": "The hotel's current condition: broken ceilings, water damage, debris in hallways, peeling paint. Structurally sound — the 1947 brick-and-concrete rebuild was built to last. But decades of deferred maintenance have taken their toll. The bones are good. The skin needs love.",
+      "metadata": { "structure": "sound", "issues": ["water damage", "broken ceilings", "debris"], "assessment": "bones good, needs renovation" }
+    },
+    {
+      "id": "population-dynamics",
+      "type": "fact",
+      "category": "land",
+      "label": "1,707 People",
+      "description": "Dunsmuir's population has been roughly stable for decades — a sign of both resilience and stagnation. The town hasn't collapsed, but it hasn't grown. Average age skews older. Young people leave for cities. The question: can a new kind of economy bring them back?",
+      "metadata": { "population": 1707, "trend": "stable/slight decline", "median_age": "older than state average", "challenge": "brain drain" }
+    },
+    {
+      "id": "mark-juarez",
+      "type": "person",
+      "category": "land",
+      "label": "Mark Juarez",
+      "description": "CEO of The Happy Company. Has held multiple Dunsmuir properties for over 20 years. Inventor, visionary, patient steward. His philosophy: 'the caring touch' — care as currency. He didn't flip the buildings. He waited for the right moment.",
+      "metadata": { "company": "The Happy Company", "tenure": "20+ years", "properties_held": "multiple", "philosophy": "care as currency" }
+    },
+    {
+      "id": "dvv-properties",
+      "type": "fact",
+      "category": "land",
+      "label": "The DVV Portfolio",
+      "description": "Mark's portfolio includes Hotel Dunsmuir, California Theatre, and several additional properties scattered along the historic district. Together they form the skeleton of a village-within-a-village — enough critical mass to create a self-reinforcing ecosystem.",
+      "metadata": { "key_properties": ["Hotel Dunsmuir", "California Theatre"], "additional": "several more", "coverage": "along historic district" }
+    },
+    {
+      "id": "matterport-scans",
+      "type": "fact",
+      "category": "land",
+      "label": "Digital Twin Captured",
+      "description": "Comprehensive Matterport 3D scans exist for the Hotel Dunsmuir — every room, hallway, and crumbling detail captured in navigable 3D. The reality register is already digitized. The raw material for every transformation is in hand.",
+      "metadata": { "technology": "Matterport", "coverage": "full hotel interior", "format": "3D point cloud / mesh", "status": "complete" }
+    },
+
+    {
+      "id": "boutique-hotel",
+      "type": "vision",
+      "category": "future",
+      "label": "Boutique Hotel Revival",
+      "description": "43 rooms restored to Art Deco glory. Not a chain — an experience. Each room could tell a different story from the hotel's history. Ghost tours. A bar that serves drinks from the 1940s menu. Revenue anchor for the entire DVV ecosystem.",
+      "metadata": { "rooms": 43, "style": "Art Deco restoration", "revenue_model": "hospitality", "differentiator": "history-as-experience" }
+    },
+    {
+      "id": "coworking-residency",
+      "type": "vision",
+      "category": "future",
+      "label": "Creator Coworking & Residency",
+      "description": "Dedicated floors for artist and technologist residencies. High-speed mesh network. Workspaces with mountain views. 1-month to 6-month stays. Build in nature, ship to the world. The anti-WeWork: small, intentional, connected to place.",
+      "metadata": { "model": "residency + coworking", "duration": "1-6 months", "infrastructure": ["mesh network", "high-speed internet"], "vibe": "anti-WeWork" }
+    },
+    {
+      "id": "theatre-reactivation",
+      "type": "vision",
+      "category": "future",
+      "label": "Theatre as Cultural Hub",
+      "description": "The California Theatre seats 800+. Restore it as a venue for live performance, film screenings, conferences, immersive art installations. The creek under the stage becomes a feature, not a problem. Host GDC-style events in the mountains.",
+      "metadata": { "capacity": "800+", "uses": ["performance", "film", "conferences", "immersive art"], "unique_feature": "creek under stage" }
+    },
+    {
+      "id": "regenerative-infrastructure",
+      "type": "vision",
+      "category": "future",
+      "label": "Regenerative Infrastructure",
+      "description": "Solar arrays on rooftops. Mesh networking between properties. Shipping container compute nodes for local AI processing. Earthship construction principles for new builds. 3D-printed auxiliary structures. Infrastructure that gives back more than it takes.",
+      "metadata": { "systems": ["solar", "mesh networks", "edge compute", "earthship principles", "3D printing"], "philosophy": "regenerative" }
+    },
+    {
+      "id": "wellness-retreat",
+      "type": "vision",
+      "category": "future",
+      "label": "Wellness & Nature Retreat",
+      "description": "Purest water in America. Clean mountain air. Four seasons. River access. Forest bathing. Sleep pods in restored hotel rooms. Meditation spaces in the theatre. The antidote to Silicon Valley burnout — 5 hours north by train.",
+      "metadata": { "offerings": ["forest bathing", "river access", "sleep pods", "meditation"], "differentiator": "nature + proximity to SF" }
+    },
+    {
+      "id": "knowledge-commons",
+      "type": "vision",
+      "category": "future",
+      "label": "Knowledge Commons",
+      "description": "A spatial knowledge graph connecting Dunsmuir's history, vision, and community wisdom. Open-source, community-contributed, AI-augmented. Not a museum — a living document that grows with every visitor, every story shared, every idea contributed.",
+      "metadata": { "model": "open-source knowledge graph", "contributors": "community + AI", "format": "spatial / 3D / navigable" }
+    },
+    {
+      "id": "care-as-currency",
+      "type": "concept",
+      "category": "future",
+      "label": "Care as Currency",
+      "description": "Mark's core philosophy applied as economic principle. Value measured not just in ROI but in regeneration — of buildings, community, ecology, culture. Investors don't extract; they participate. Returns measured in decades, not quarters.",
+      "metadata": { "origin": "Mark Juarez / The Happy Company", "model": "long-term regenerative investment", "metric": "multi-capital returns" }
+    },
+    {
+      "id": "digital-village",
+      "type": "concept",
+      "category": "future",
+      "label": "The Digital Village",
+      "description": "Every physical space has a digital twin. Every digital twin has a knowledge graph. Every knowledge graph is a shard of a larger metagraph. Visitors navigate both physical and digital simultaneously. The village exists in both worlds — AR, VR, web, and on foot.",
+      "metadata": { "layers": ["physical", "digital twin", "knowledge graph", "metagraph"], "access": ["AR", "VR", "web", "in-person"] }
+    },
+    {
+      "id": "art-tech-intersection",
+      "type": "concept",
+      "category": "future",
+      "label": "Art × Technology",
+      "description": "The intersection where DVV lives. Gaussian splat worlds from Matterport scans. AI-restored architectural visions. Knowledge graphs as spatial art. Historical photos turned into navigable 3D portals. Technology in service of beauty, memory, and possibility.",
+      "metadata": { "technologies": ["gaussian splats", "AI restoration", "spatial knowledge graphs", "3D portals"], "purpose": "beauty, memory, possibility" }
+    },
+    {
+      "id": "investment-narrative",
+      "type": "concept",
+      "category": "future",
+      "label": "The Investment Thesis",
+      "description": "Acquire historic properties at canyon-bottom prices. Apply regenerative development. Create a self-reinforcing ecosystem of hospitality, culture, technology, and wellness. Revenue from hotel, events, residencies, retreats. Target: Silicon Valley technologists who want meaning with their returns.",
+      "metadata": { "target_investors": "wealthy Silicon Valley technologists", "revenue_streams": ["hospitality", "events", "residencies", "retreats", "digital experiences"], "moat": "20-year stewardship + historic authenticity + natural beauty" }
+    }
+  ],
+  "edges": [
+    { "source": "hotel-dunsmuir", "target": "thirteen-ghosts", "type": "haunted_by", "label": "13 spirits reside" },
+    { "source": "hotel-dunsmuir", "target": "golden-age-visitors", "type": "hosted", "label": "welcomed Hollywood" },
+    { "source": "hotel-dunsmuir", "target": "great-fire", "type": "survived", "label": "burned and reborn" },
+    { "source": "hotel-dunsmuir", "target": "abner-weed", "type": "built_by", "label": "founded by" },
+    { "source": "hotel-dunsmuir", "target": "current-decay", "type": "current_state", "label": "current condition" },
+    { "source": "hotel-dunsmuir", "target": "boutique-hotel", "type": "becomes", "label": "transforms into" },
+    { "source": "hotel-dunsmuir", "target": "matterport-scans", "type": "digitized_as", "label": "captured in 3D" },
+
+    { "source": "california-theatre", "target": "vaudeville-era", "type": "witnessed", "label": "hosted performances" },
+    { "source": "california-theatre", "target": "theatre-reactivation", "type": "becomes", "label": "transforms into" },
+    { "source": "california-theatre", "target": "water-quality", "type": "connected_to", "label": "creek flows beneath" },
+
+    { "source": "great-fire", "target": "abner-weed", "type": "destroyed_work_of", "label": "destroyed his creation" },
+    { "source": "golden-age-visitors", "target": "babe-ruth-1924", "type": "contemporary_with", "label": "same era" },
+    { "source": "golden-age-visitors", "target": "railroad-mythology", "type": "enabled_by", "label": "arrived by rail" },
+
+    { "source": "railroad-mythology", "target": "dunsmuir-town", "type": "created", "label": "gave birth to" },
+    { "source": "railroad-mythology", "target": "amtrak-connection", "type": "evolved_into", "label": "legacy continues" },
+
+    { "source": "mt-shasta-spirituality", "target": "dunsmuir-town", "type": "overlooks", "label": "sacred presence" },
+    { "source": "mt-shasta-spirituality", "target": "wellness-retreat", "type": "inspires", "label": "spiritual foundation" },
+    { "source": "mt-shasta-spirituality", "target": "water-quality", "type": "sources", "label": "snowmelt origin" },
+
+    { "source": "dunsmuir-town", "target": "population-dynamics", "type": "characterized_by", "label": "demographic reality" },
+    { "source": "dunsmuir-town", "target": "property-values", "type": "characterized_by", "label": "economic reality" },
+    { "source": "dunsmuir-town", "target": "climate-resilience", "type": "characterized_by", "label": "environmental profile" },
+    { "source": "dunsmuir-town", "target": "dvv-properties", "type": "contains", "label": "portfolio location" },
+
+    { "source": "mark-juarez", "target": "hotel-dunsmuir", "type": "stewards", "label": "20-year steward" },
+    { "source": "mark-juarez", "target": "california-theatre", "type": "stewards", "label": "20-year steward" },
+    { "source": "mark-juarez", "target": "dvv-properties", "type": "owns", "label": "portfolio holder" },
+    { "source": "mark-juarez", "target": "care-as-currency", "type": "authored", "label": "core philosophy" },
+    { "source": "mark-juarez", "target": "investment-narrative", "type": "presents", "label": "the pitch" },
+
+    { "source": "dvv-properties", "target": "matterport-scans", "type": "documented_by", "label": "digitally captured" },
+
+    { "source": "boutique-hotel", "target": "coworking-residency", "type": "supports", "label": "shared ecosystem" },
+    { "source": "boutique-hotel", "target": "wellness-retreat", "type": "supports", "label": "shared ecosystem" },
+    { "source": "boutique-hotel", "target": "thirteen-ghosts", "type": "features", "label": "ghost tours" },
+
+    { "source": "coworking-residency", "target": "regenerative-infrastructure", "type": "powered_by", "label": "tech backbone" },
+    { "source": "coworking-residency", "target": "digital-village", "type": "contributes_to", "label": "village node" },
+    { "source": "coworking-residency", "target": "amtrak-connection", "type": "accessible_via", "label": "7hrs from SF" },
+
+    { "source": "theatre-reactivation", "target": "art-tech-intersection", "type": "embodies", "label": "art meets tech" },
+    { "source": "theatre-reactivation", "target": "knowledge-commons", "type": "hosts", "label": "knowledge events" },
+
+    { "source": "regenerative-infrastructure", "target": "climate-resilience", "type": "enhances", "label": "builds resilience" },
+
+    { "source": "wellness-retreat", "target": "water-quality", "type": "leverages", "label": "purest water" },
+    { "source": "wellness-retreat", "target": "climate-resilience", "type": "leverages", "label": "clean mountain air" },
+
+    { "source": "knowledge-commons", "target": "digital-village", "type": "powers", "label": "knowledge spine" },
+    { "source": "knowledge-commons", "target": "art-tech-intersection", "type": "embodies", "label": "living document" },
+
+    { "source": "care-as-currency", "target": "investment-narrative", "type": "underpins", "label": "philosophical core" },
+    { "source": "care-as-currency", "target": "regenerative-infrastructure", "type": "guides", "label": "design principle" },
+
+    { "source": "digital-village", "target": "art-tech-intersection", "type": "manifests", "label": "dual-world existence" },
+    { "source": "digital-village", "target": "matterport-scans", "type": "built_from", "label": "digital twin source" },
+
+    { "source": "investment-narrative", "target": "property-values", "type": "leverages", "label": "value gap opportunity" },
+    { "source": "investment-narrative", "target": "boutique-hotel", "type": "funds", "label": "anchor investment" },
+    { "source": "investment-narrative", "target": "theatre-reactivation", "type": "funds", "label": "cultural investment" },
+
+    { "source": "current-decay", "target": "boutique-hotel", "type": "contrasts_with", "label": "decay → revival" },
+    { "source": "population-dynamics", "target": "coworking-residency", "type": "addressed_by", "label": "brings new residents" },
+
+    { "source": "vaudeville-era", "target": "golden-age-visitors", "type": "concurrent_with", "label": "same golden age" },
+    { "source": "babe-ruth-1924", "target": "dunsmuir-town", "type": "occurred_in", "label": "put Dunsmuir on map" }
+  ]
+}
