@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { GraphRenderer } from './graph/GraphRenderer.js';
 
 /**
@@ -142,6 +143,48 @@ async function init() {
 init();
 
 // ============================================================
+// MR. HAPPY MASCOT
+// ============================================================
+let mrHappy = null;
+const mascotLight = new THREE.PointLight(0xd4a853, 0.8, 12);
+scene.add(mascotLight);
+
+const gltfLoader = new GLTFLoader();
+gltfLoader.load('/mr-happy.glb', (gltf) => {
+  mrHappy = gltf.scene;
+
+  // Auto-scale to fit nicely
+  const box = new THREE.Box3().setFromObject(mrHappy);
+  const size = box.getSize(new THREE.Vector3());
+  const maxDim = Math.max(size.x, size.y, size.z);
+  const targetSize = 2.5;
+  const scale = targetSize / maxDim;
+  mrHappy.scale.setScalar(scale);
+
+  // Position: lower-right, slightly behind graph
+  mrHappy.position.set(14, -6, 8);
+
+  // Add emissive glow to all meshes
+  mrHappy.traverse((child) => {
+    if (child.isMesh) {
+      child.material = child.material.clone();
+      child.material.emissive = new THREE.Color(0xd4a853);
+      child.material.emissiveIntensity = 0.15;
+    }
+  });
+
+  mrHappy.userData.isMascot = true;
+  scene.add(mrHappy);
+
+  // Position the warm light near mascot
+  mascotLight.position.set(14, -4, 8);
+
+  console.log('Mr. Happy loaded 🎉');
+}, undefined, (err) => {
+  console.warn('Could not load Mr. Happy:', err);
+});
+
+// ============================================================
 // RAYCASTING (interaction)
 // ============================================================
 const raycaster = new THREE.Raycaster();
@@ -242,6 +285,13 @@ function animate() {
   pointLight1.position.z = Math.cos(elapsed * 0.2) * 8;
   pointLight2.position.x = Math.cos(elapsed * 0.15) * 8;
   pointLight2.position.z = Math.sin(elapsed * 0.15) * 8;
+
+  // Animate Mr. Happy — gentle bob + slow rotation
+  if (mrHappy) {
+    mrHappy.position.y = -6 + Math.sin(elapsed * 0.6) * 0.4;
+    mrHappy.rotation.y = elapsed * 0.3;
+    mascotLight.position.y = mrHappy.position.y + 2;
+  }
 
   renderer.render(scene, camera);
 }
