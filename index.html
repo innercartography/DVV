@@ -66,6 +66,18 @@
     <div class="title-hint">Click nodes to explore · Scroll to zoom · Drag to rotate</div>
   </div>
 
+  <!-- XR Video (establishing shot for VR transitions) -->
+  <video id="xr-video" playsinline style="display:none;"></video>
+
+  <!-- XR Status Indicator -->
+  <div id="xr-status" class="hidden"></div>
+
+  <!-- XR Entry Buttons -->
+  <div id="xr-buttons">
+    <button id="btn-enter-ar" class="xr-btn xr-ar">Enter AR</button>
+    <button id="btn-enter-vr" class="xr-btn xr-vr">Enter VR</button>
+  </div>
+
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>

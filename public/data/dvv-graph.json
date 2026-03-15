@@ -252,9 +252,25 @@
       "label": "The Investment Thesis",
       "description": "Acquire historic properties at canyon-bottom prices. Apply regenerative development. Create a self-reinforcing ecosystem of hospitality, culture, technology, and wellness. Revenue from hotel, events, residencies, retreats. Target: Silicon Valley technologists who want meaning with their returns.",
       "metadata": { "target_investors": "wealthy Silicon Valley technologists", "revenue_streams": ["hospitality", "events", "residencies", "retreats", "digital experiences"], "moat": "20-year stewardship + historic authenticity + natural beauty" }
+    },
+    {
+      "id": "xr-test-world",
+      "type": "portal",
+      "category": "future",
+      "label": "XR Test World",
+      "description": "Test portal for the AR→VR flow. Pinch this orb to enter an immersive world. Uses placeholder media — swap with real Marble video and .spz scan when ready.",
+      "metadata": {
+        "purpose": "XR flow test",
+        "xr": {
+          "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+          "splatUrl": "https://sparkjs.dev/examples/butterfly.spz"
+        }
+      }
     }
   ],
   "edges": [
+    { "source": "xr-test-world", "target": "digital-village", "type": "demonstrates", "label": "XR portal demo" },
+    { "source": "xr-test-world", "target": "art-tech-intersection", "type": "embodies", "label": "art meets tech" },
     { "source": "hotel-dunsmuir", "target": "thirteen-ghosts", "type": "haunted_by", "label": "13 spirits reside" },
     { "source": "hotel-dunsmuir", "target": "golden-age-visitors", "type": "hosted", "label": "welcomed Hollywood" },
     { "source": "hotel-dunsmuir", "target": "great-fire", "type": "survived", "label": "burned and reborn" },

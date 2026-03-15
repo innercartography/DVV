@@ -377,3 +377,81 @@ body {
 
   #title-overlay h1 { font-size: 1.6rem; }
 }
+
+/* ===== XR ENTRY BUTTONS ===== */
+#xr-buttons {
+  position: fixed;
+  top: 28px;
+  right: 28px;
+  z-index: 15;
+  display: flex;
+  gap: 8px;
+}
+
+/* Move detail panel down when XR buttons present */
+#detail-panel {
+  top: 80px;
+}
+
+.xr-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--bright);
+}
+
+.xr-btn:hover {
+  transform: translateY(-1px);
+}
+
+.xr-btn:active {
+  transform: scale(0.96);
+}
+
+.xr-btn.xr-ar {
+  border-color: var(--cyan-dim);
+  color: var(--cyan);
+}
+
+.xr-btn.xr-ar:hover {
+  background: rgba(0, 255, 200, 0.1);
+  box-shadow: 0 0 24px rgba(0, 255, 200, 0.15);
+  border-color: var(--cyan);
+}
+
+.xr-btn.xr-vr {
+  border-color: rgba(170, 102, 255, 0.25);
+  color: var(--violet);
+}
+
+.xr-btn.xr-vr:hover {
+  background: rgba(170, 102, 255, 0.1);
+  box-shadow: 0 0 24px rgba(170, 102, 255, 0.15);
+  border-color: var(--violet);
+}
+
+.xr-btn.unsupported {
+  opacity: 0.35;
+  pointer-events: none;
+  text-decoration: line-through;
+}
+
+#xr-buttons.hidden {
+  display: none;
+}
+
+/* ===== XR SESSION — HIDE OVERLAYS ===== */
+.xr-hidden {
+  display: none !important;
+}
+

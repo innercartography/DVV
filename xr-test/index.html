@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebXR Support Tester</title>
+  <meta name="description" content="Test your browser's WebXR support for immersive VR, AR, and hand tracking.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a12;
+      --surface: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.1);
+      --text: #e8e8f0;
+      --text-dim: #8888a0;
+      --vr: #6c5ce7;
+      --vr-glow: rgba(108,92,231,0.35);
+      --ar: #00cec9;
+      --ar-glow: rgba(0,206,201,0.35);
+      --hand: #fdcb6e;
+      --hand-glow: rgba(253,203,110,0.35);
+      --radius: 20px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    /* Animated background gradient */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 600px 400px at 20% 30%, var(--vr-glow), transparent),
+        radial-gradient(ellipse 500px 350px at 80% 70%, var(--ar-glow), transparent),
+        radial-gradient(ellipse 400px 300px at 50% 50%, var(--hand-glow), transparent);
+      animation: drift 12s ease-in-out infinite alternate;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(-30px, 20px) scale(1.08); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    h1 span {
+      background: linear-gradient(135deg, var(--vr), var(--ar));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p.subtitle {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    .btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      min-height: 90px;
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.3s, border-color 0.3s;
+      text-align: left;
+      color: var(--text);
+      font-family: inherit;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn .icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+    }
+
+    .btn .label { display: flex; flex-direction: column; gap: 2px; }
+    .btn .label strong { font-size: 1.05rem; font-weight: 600; }
+    .btn .label small  { font-size: 0.8rem; color: var(--text-dim); }
+
+    /* VR button */
+    #btn-vr:hover, #btn-vr:focus-visible {
+      border-color: var(--vr);
+      box-shadow: 0 0 30px var(--vr-glow);
+    }
+    #btn-vr .icon { background: linear-gradient(135deg, var(--vr), #a29bfe); }
+
+    /* AR button */
+    #btn-ar:hover, #btn-ar:focus-visible {
+      border-color: var(--ar);
+      box-shadow: 0 0 30px var(--ar-glow);
+    }
+    #btn-ar .icon { background: linear-gradient(135deg, var(--ar), #55efc4); }
+
+    /* Hand-tracking button */
+    #btn-hand:hover, #btn-hand:focus-visible {
+      border-color: var(--hand);
+      box-shadow: 0 0 30px var(--hand-glow);
+    }
+    #btn-hand .icon { background: linear-gradient(135deg, var(--hand), #e17055); }
+
+    /* Result toast */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      background: rgba(30,30,50,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 28px;
+      font-size: 0.95rem;
+      color: var(--text);
+      max-width: 90vw;
+      text-align: center;
+      z-index: 100;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s;
+      opacity: 0;
+      pointer-events: none;
+      word-break: break-word;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .toast .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin-bottom: 6px;
+    }
+
+    .toast .badge.success { background: rgba(0,206,201,0.2); color: #55efc4; }
+    .toast .badge.fail    { background: rgba(214,48,49,0.2);  color: #ff7675; }
+    .toast .badge.info    { background: rgba(108,92,231,0.2); color: #a29bfe; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      margin-top: 40px;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1><span>WebXR</span> Support Tester</h1>
+    <p class="subtitle">Tap a button to check your browser's XR capabilities</p>
+
+    <button class="btn" id="btn-vr">
+      <div class="icon">🥽</div>
+      <div class="label">
+        <strong>Immersive VR</strong>
+        <small>isSessionSupported("immersive-vr")</small>
+      </div>
+    </button>
+
+    <button class="btn" id="btn-ar">
+      <div class="icon">📱</div>
+      <div class="label">
+        <strong>Immersive AR</strong>
+        <small>isSessionSupported("immersive-ar")</small>
+      </div>
+    </button>
+
+    <button class="btn" id="btn-hand">
+      <div class="icon">🖐️</div>
+      <div class="label">
+        <strong>VR + Hand Tracking</strong>
+        <small>requestSession with hand-tracking</small>
+      </div>
+    </button>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <footer>Uses the navigator.xr WebXR Device API</footer>
+
+  <script>
+    const toast = document.getElementById('toast');
+    let toastTimer;
+
+    function showToast(badge, badgeClass, message) {
+      clearTimeout(toastTimer);
+      toast.innerHTML = `<div class="badge ${badgeClass}">${badge}</div><div>${message}</div>`;
+      requestAnimationFrame(() => toast.classList.add('show'));
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 5000);
+    }
+
+    function noXR() {
+      showToast('NOT AVAILABLE', 'fail', 'navigator.xr is not available in this browser.');
+    }
+
+    // Button 1 — immersive-vr support check
+    document.getElementById('btn-vr').addEventListener('click', async () => {
+      if (!navigator.xr) return noXR();
+      try {
+        const supported = await navigator.xr.isSessionSupported('immersive-vr');
+        showToast(supported ? 'SUPPORTED' : 'NOT SUPPORTED', supported ? 'success' : 'fail',
+          `immersive-vr is <strong>${supported ? 'supported ✅' : 'not supported ❌'}</strong>`);
+      } catch (e) {
+        showToast('ERROR', 'fail', e.message);
+      }
+    });
+
+    // Button 2 — immersive-ar support check
+    document.getElementById('btn-ar').addEventListener('click', async () => {
+      if (!navigator.xr) return noXR();
+      try {
+        const supported = await navigator.xr.isSessionSupported('immersive-ar');
+        showToast(supported ? 'SUPPORTED' : 'NOT SUPPORTED', supported ? 'success' : 'fail',
+          `immersive-ar is <strong>${supported ? 'supported ✅' : 'not supported ❌'}</strong>`);
+      } catch (e) {
+        showToast('ERROR', 'fail', e.message);
+      }
+    });
+
+    // Button 3 — request immersive-vr session with hand-tracking
+    document.getElementById('btn-hand').addEventListener('click', async () => {
+      if (!navigator.xr) return noXR();
+      try {
+        const session = await navigator.xr.requestSession('immersive-vr', {
+          optionalFeatures: ['hand-tracking']
+        });
+        showToast('SUCCESS', 'success', 'immersive-vr session with hand-tracking started! ✅');
+        // End the session immediately so it doesn't block the browser
+        await session.end();
+      } catch (e) {
+        showToast('ERROR', 'fail', e.message);
+      }
+    });
+  </script>
+</body>
+</html>

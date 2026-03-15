@@ -2,6 +2,12 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { GraphRenderer } from './graph/GraphRenderer.js';
+import { XRLayerStateMachine, XR_STATES } from './xr/XRLayerStateMachine.js';
+import { VRWorldLoader } from './xr/VRWorldLoader.js';
+import { HandTrackingVisualizer } from './xr/HandTrackingVisualizer.js';
+import { XRControllerManager } from './xr/XRControllerManager.js';
+import { XRHandInput } from './xr/XRHandInput.js';
+import { XRLocomotion } from './xr/XRLocomotion.js';
 
 /**
  * DVV Spatial Knowledge Graph — Main Entry
@@ -21,11 +27,13 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor(0x060810, 1);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.2;
+renderer.xr.enabled = true;
 
 const scene = new THREE.Scene();
 
-// Fog for depth
-scene.fog = new THREE.FogExp2(0x060810, 0.012);
+// Fog for depth (saved so we can disable in XR)
+const sceneFog = new THREE.FogExp2(0x060810, 0.012);
+scene.fog = sceneFog;
 
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
 camera.position.set(0, 8, 22);
@@ -134,13 +142,272 @@ const particleField = createParticleField();
 const graphRenderer = new GraphRenderer(scene);
 
 // Load data
+let graphData = null;
 async function init() {
   const response = await fetch('/data/dvv-graph.json');
-  const graphData = await response.json();
+  graphData = await response.json();
   graphRenderer.loadData(graphData);
 }
 
 init();
+
+// ============================================================
+// XR GRAPH RIG — scales graph to tabletop size in XR
+// ============================================================
+const XR_GRAPH_SCALE = 0.05; // 24m graph → ~1.2m across
+const XR_GRAPH_POS = new THREE.Vector3(0, 1.0, -1.5); // chest height, arm's length
+
+const xrGraphRig = new THREE.Group();
+xrGraphRig.name = 'xr-graph-rig';
+xrGraphRig.scale.setScalar(XR_GRAPH_SCALE);
+xrGraphRig.position.copy(XR_GRAPH_POS);
+scene.add(xrGraphRig);
+xrGraphRig.visible = false; // only during XR
+
+let xrGraphActive = false;
+
+function enterXRGraphRig() {
+  if (xrGraphActive) return;
+  xrGraphActive = true;
+
+  // Reparent graph groups into the scaled rig
+  xrGraphRig.add(graphRenderer.nodeGroup);
+  xrGraphRig.add(graphRenderer.labelGroup);
+  xrGraphRig.add(graphRenderer.edgeRenderer.edgeGroup);
+
+  xrGraphRig.visible = true;
+  xrGraphRig.scale.setScalar(XR_GRAPH_SCALE);
+  xrGraphRig.position.copy(XR_GRAPH_POS);
+  xrGraphRig.rotation.set(0, 0, 0);
+
+  console.log('Graph reparented into XR rig (scale:', XR_GRAPH_SCALE, ')');
+}
+
+function exitXRGraphRig() {
+  if (!xrGraphActive) return;
+  xrGraphActive = false;
+
+  // Reparent back to scene root
+  scene.add(graphRenderer.nodeGroup);
+  scene.add(graphRenderer.labelGroup);
+  scene.add(graphRenderer.edgeRenderer.edgeGroup);
+
+  xrGraphRig.visible = false;
+
+  console.log('Graph restored from XR rig to scene root');
+}
+
+// ============================================================
+// XR HELPERS — test sphere and bright light for XR visibility
+// ============================================================
+const xrTestSphere = new THREE.Mesh(
+  new THREE.SphereGeometry(0.5, 32, 32),
+  new THREE.MeshStandardMaterial({
+    color: 0xffffff,
+    emissive: 0xffffff,
+    emissiveIntensity: 0.5,
+    roughness: 0.3,
+  })
+);
+xrTestSphere.position.set(0, 0, -2);
+xrTestSphere.visible = false;
+xrTestSphere.name = 'xr-test-sphere';
+scene.add(xrTestSphere);
+
+const xrAmbientLight = new THREE.AmbientLight(0xffffff, 1.5);
+xrAmbientLight.visible = false;
+scene.add(xrAmbientLight);
+
+// ============================================================
+// XR LAYER STATE MACHINE
+// ============================================================
+const stateMachine = new XRLayerStateMachine(renderer);
+const videoEl = document.getElementById('xr-video');
+const vrWorldLoader = new VRWorldLoader(scene, videoEl);
+const handTracker = new HandTrackingVisualizer(scene);
+
+// XR Input modules
+const controllerManager = new XRControllerManager(renderer, scene);
+const handInput = new XRHandInput();
+
+// Dolly for XR locomotion
+const xrDolly = new THREE.Group();
+xrDolly.name = 'xr-dolly';
+scene.add(xrDolly);
+const locomotion = new XRLocomotion(xrDolly);
+
+// ---- Helper: find node data by ID ----
+function getNodeData(nodeId) {
+  if (!graphData) return null;
+  return graphData.nodes.find(n => n.id === nodeId) || null;
+}
+
+// ---- Helper: check if node is an XR portal ----
+function getXRMeta(nodeId) {
+  const node = getNodeData(nodeId);
+  if (!node?.metadata?.xr) return null;
+  return { ...node.metadata.xr, node };
+}
+
+// ---- Controller select → raycast graph nodes or enter VR portal ----
+const xrRaycaster = new THREE.Raycaster();
+function handleXRSelect(nodeId) {
+  const xrMeta = getXRMeta(nodeId);
+  if (xrMeta && stateMachine.state === XR_STATES.AR_HOME) {
+    // This node is a portal — enter VR world
+    console.log(`Portal node selected: ${nodeId}, entering VR world`);
+    stateMachine.enterVRWorld(xrMeta.node);
+  } else {
+    graphRenderer.selectNode(nodeId);
+  }
+}
+
+controllerManager.onSelect((controller) => {
+  const meshes = graphRenderer.getNodeMeshes();
+  const hits = controllerManager.raycastFrom(controller, meshes);
+  if (hits.length > 0) {
+    handleXRSelect(hits[0].object.userData.nodeId);
+  } else {
+    // Empty space — deselect
+    graphRenderer.selectNode(null);
+  }
+});
+
+handInput.onSelect((handedness, pinchPoint) => {
+  const meshes = graphRenderer.getNodeMeshes();
+  xrRaycaster.set(pinchPoint, new THREE.Vector3(0, 0, -1));
+  const hits = xrRaycaster.intersectObjects(meshes, false);
+  if (hits.length > 0) {
+    handleXRSelect(hits[0].object.userData.nodeId);
+  } else {
+    // Empty space — deselect
+    graphRenderer.selectNode(null);
+  }
+});
+
+// ---- Exit gestures ----
+// Single fist: exit to desktop
+controllerManager.onExit(() => stateMachine.exitToDesktop());
+handInput.onExit(() => stateMachine.exitToDesktop());
+
+// Double-fist 2s hold: exit VR → restart AR
+handInput.onDoubleFistExit(() => {
+  if (stateMachine.state === XR_STATES.VR_WORLD) {
+    console.log('Double-fist exit: VR → AR');
+    vrWorldLoader.dispose();
+    stateMachine.exitToAR();
+  }
+});
+
+// ---- UI buttons ----
+const btnAR = document.getElementById('btn-enter-ar');
+const btnVR = document.getElementById('btn-enter-vr');
+const xrStatus = document.getElementById('xr-status');
+
+if (!navigator.xr) {
+  document.getElementById('xr-buttons')?.classList.add('hidden');
+} else {
+  navigator.xr.isSessionSupported('immersive-ar').then(s => {
+    if (!s && btnAR) btnAR.classList.add('unsupported');
+  }).catch(() => {});
+  navigator.xr.isSessionSupported('immersive-vr').then(s => {
+    if (!s && btnVR) btnVR.classList.add('unsupported');
+  }).catch(() => {});
+}
+
+if (btnAR) btnAR.addEventListener('click', () => stateMachine.enterARHome());
+if (btnVR) btnVR.addEventListener('click', () => stateMachine.enterVRDirect());
+
+const xrHideEls = [
+  document.getElementById('topology-selector'),
+  document.getElementById('category-legend'),
+  document.getElementById('title-overlay'),
+  // detail-panel stays visible in XR for node info
+];
+
+// ---- State change handler ----
+stateMachine.on('stateChange', ({ state, node }) => {
+  console.log(`State → ${state}`);
+
+  switch (state) {
+    case XR_STATES.AR_HOME:
+      // AR mode: show graph in rig, hide fog, boost lights
+      scene.fog = null;
+      xrTestSphere.visible = false;
+      xrAmbientLight.visible = true;
+      ambientLight.intensity = 2.0;
+      dirLight.intensity = 1.5;
+      xrHideEls.forEach(el => el?.classList.add('xr-hidden'));
+      controls.enabled = false;
+      locomotion.reset();
+      vrWorldLoader.dispose();
+      enterXRGraphRig();
+      graphRenderer.nodeGroup.visible = true;
+      graphRenderer.labelGroup.visible = true;
+      if (btnAR) btnAR.textContent = 'Exit AR';
+      if (btnVR) btnVR.textContent = 'Enter VR';
+      break;
+
+    case XR_STATES.VR_TRANSITION:
+      // Video playing, splat loading
+      if (btnAR) btnAR.textContent = 'Enter AR';
+      graphRenderer.nodeGroup.visible = false;
+      graphRenderer.labelGroup.visible = false;
+
+      // Start the VR world load sequence
+      const xrMeta = node?.metadata?.xr || {};
+      vrWorldLoader.load(xrMeta, () => {
+        stateMachine.startVRSession();
+      });
+      break;
+
+    case XR_STATES.VR_WORLD:
+      // VR mode: locomotion active, lights boosted
+      scene.fog = null;
+      xrAmbientLight.visible = true;
+      ambientLight.intensity = 2.0;
+      dirLight.intensity = 1.5;
+      xrHideEls.forEach(el => el?.classList.add('xr-hidden'));
+      controls.enabled = false;
+      locomotion.reset();
+
+      // If entered via portal (splat loaded), hide graph.
+      if (vrWorldLoader.splatMesh || node) {
+        exitXRGraphRig();
+        graphRenderer.nodeGroup.visible = false;
+        graphRenderer.labelGroup.visible = false;
+        xrTestSphere.visible = false;
+      } else {
+        // Direct VR entry — show graph in rig
+        enterXRGraphRig();
+        graphRenderer.nodeGroup.visible = true;
+        graphRenderer.labelGroup.visible = true;
+        xrTestSphere.visible = false;
+      }
+      if (btnVR) btnVR.textContent = 'Exit VR';
+      break;
+
+    case XR_STATES.DESKTOP:
+    default:
+      // Desktop: restore everything
+      exitXRGraphRig();
+      scene.fog = sceneFog;
+      xrTestSphere.visible = false;
+      xrAmbientLight.visible = false;
+      ambientLight.intensity = 0.8;
+      dirLight.intensity = 0.6;
+      renderer.setClearColor(0x060810, 1);
+      xrHideEls.forEach(el => el?.classList.remove('xr-hidden'));
+      controls.enabled = true;
+      locomotion.reset();
+      vrWorldLoader.dispose();
+      graphRenderer.nodeGroup.visible = true;
+      graphRenderer.labelGroup.visible = true;
+      if (btnAR) btnAR.textContent = 'Enter AR';
+      if (btnVR) btnVR.textContent = 'Enter VR';
+      break;
+  }
+});
 
 // ============================================================
 // MR. HAPPY MASCOT
@@ -258,18 +525,79 @@ window.addEventListener('resize', () => {
 });
 
 // ============================================================
-// ANIMATION LOOP
+// ANIMATION LOOP (using setAnimationLoop for WebXR compatibility)
 // ============================================================
 const clock = new THREE.Clock();
 
-function animate() {
-  requestAnimationFrame(animate);
-
+function animate(timestamp, frame) {
   const deltaTime = clock.getDelta();
   const elapsed = clock.getElapsedTime();
 
-  controls.update();
+  // Only update orbit controls when not in XR
+  if (!renderer.xr.isPresenting) {
+    controls.update();
+  }
+
   graphRenderer.update(deltaTime);
+
+  // ---- XR Input Updates ----
+  if (renderer.xr.isPresenting) {
+    // Hand tracking visuals + pinch/fist detection
+    handTracker.update(frame, renderer);
+    const handData = handInput.update(frame, renderer);
+
+    // Controller updates (menu button polling, ray visibility)
+    controllerManager.update();
+
+    // ---- XR Rig Manipulation (instead of locomotion) ----
+    if (xrGraphActive) {
+      // Right thumbstick: rotate the graph rig
+      const rightStick = controllerManager.getThumbstick(1);
+      if (Math.abs(rightStick.x) > 0.15) {
+        xrGraphRig.rotation.y -= rightStick.x * 1.5 * deltaTime;
+      }
+      if (Math.abs(rightStick.y) > 0.15) {
+        xrGraphRig.rotation.x += rightStick.y * 1.0 * deltaTime;
+        xrGraphRig.rotation.x = Math.max(-1.2, Math.min(1.2, xrGraphRig.rotation.x));
+      }
+
+      // Left thumbstick Y: zoom (scale) the graph rig
+      const leftStick = controllerManager.getThumbstick(0);
+      if (Math.abs(leftStick.y) > 0.15) {
+        const scaleDelta = -leftStick.y * 0.06 * deltaTime;
+        const newScale = Math.max(0.01, Math.min(0.3, xrGraphRig.scale.x + scaleDelta));
+        xrGraphRig.scale.setScalar(newScale);
+      }
+      // Left thumbstick X: slide rig left/right
+      if (Math.abs(leftStick.x) > 0.15) {
+        xrGraphRig.position.x += leftStick.x * 0.5 * deltaTime;
+      }
+
+      // Hand zoom: two-hand spread scales the rig
+      const spread = handInput.getHandSpread(frame, renderer);
+      if (spread !== null) {
+        if (locomotion.previousSpread !== null) {
+          const delta = spread - locomotion.previousSpread;
+          if (Math.abs(delta) > 0.001) {
+            const scaleDelta = delta * 0.3;
+            const newScale = Math.max(0.01, Math.min(0.3, xrGraphRig.scale.x + scaleDelta));
+            xrGraphRig.scale.setScalar(newScale);
+          }
+        }
+        locomotion.previousSpread = spread;
+      } else {
+        locomotion.previousSpread = null;
+      }
+    } else {
+      // Not in rig mode — use dolly locomotion (for VR world/splat)
+      locomotion.updateControllers(controllerManager, deltaTime);
+      const spread = handInput.getHandSpread(frame, renderer);
+      locomotion.updateHandZoom(spread, deltaTime);
+    }
+  } else {
+    // Non-XR: still update hand tracker (hides visuals)
+    handTracker.update(frame, renderer);
+  }
 
   // Animate ambient particles
   const positions = particleField.geometry.attributes.position.array;
@@ -296,4 +624,4 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-animate();
+renderer.setAnimationLoop(animate);
