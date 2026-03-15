@@ -1,0 +1,805 @@
+:root {
+  --void: #0a0805;
+  --parchment: #f4e9d0;
+  --parchment-dark: #c4a882;
+  --ink: #2c1810;
+  --gold: #c9a84c;
+  --gold-bright: #f0c040;
+  --crimson: #c0392b;
+  --teal: #1abc9c;
+  --violet: #9b59b6;
+  --amber: #e67e22;
+  --green: #27ae60;
+  --glow: rgba(201, 168, 76, 0.3);
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Crimson Text', serif;
+  --font-mono: 'Space Mono', monospace;
+  --transition-speed: 0.4s;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--void);
+  color: var(--parchment);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ───────── LOADING STATE ───────── */
+#app {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+body.loaded #app {
+  opacity: 1;
+}
+
+/* ───────── VIEW TRANSITIONS ───────── */
+#mode-selector,
+#map-view,
+#building-panel,
+#final-reveal {
+  animation: viewFadeIn var(--transition-speed) ease forwards;
+}
+
+@keyframes viewFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ───────── MODE SELECTOR ───────── */
+#mode-selector {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 70%),
+    var(--void);
+  padding: 2rem;
+}
+
+.mode-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 5vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 40px rgba(201,168,76,0.4);
+  animation: titleGlow 4s ease infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% { text-shadow: 0 0 40px rgba(201,168,76,0.4); }
+  50% { text-shadow: 0 0 80px rgba(201,168,76,0.6), 0 0 20px rgba(201,168,76,0.3); }
+}
+
+.mode-subtitle {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(0.9rem, 2vw, 1.3rem);
+  color: var(--parchment-dark);
+  text-align: center;
+  margin-bottom: 4rem;
+  letter-spacing: 0.05em;
+}
+
+.mode-buttons {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mode-btn {
+  background: rgba(201,168,76,0.06);
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--parchment);
+  padding: 2.5rem 3rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 220px;
+  transition: all 0.3s ease;
+  font-family: var(--font-body);
+  position: relative;
+  overflow: hidden;
+}
+
+.mode-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(201,168,76,0.08) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.mode-btn:hover::before {
+  opacity: 1;
+}
+
+.mode-btn:hover {
+  background: rgba(201,168,76,0.12);
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(201,168,76,0.2);
+}
+
+.mode-btn:active {
+  transform: translateY(-2px);
+  transition-duration: 0.1s;
+}
+
+.mode-icon {
+  font-size: 2rem;
+  color: var(--gold);
+}
+
+.mode-label {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+
+.mode-desc {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--parchment-dark);
+  text-align: center;
+}
+
+/* ───────── MAP VIEW ───────── */
+#map-view {
+  min-height: 100vh;
+  position: relative;
+  background: var(--void);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#map-container {
+  position: relative;
+  width: 100%;
+  max-width: 1512px;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: #2c1810;
+  aspect-ratio: 1512 / 810;
+}
+
+#map-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: sepia(0.3) brightness(0.85) saturate(0.9);
+  transition: filter 0.5s ease;
+}
+
+#map-image.img-error {
+  display: none;
+}
+
+#map-container:hover #map-image {
+  filter: sepia(0.2) brightness(0.9) saturate(1);
+}
+
+#map-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Building nodes on map */
+.map-node {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.map-node-circle {
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 6px rgba(0,0,0,0.5));
+}
+
+.map-node:hover .map-node-circle {
+  filter: brightness(1.4) drop-shadow(0 0 8px rgba(201,168,76,0.4));
+}
+
+.map-node-label {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  fill: var(--parchment);
+  text-anchor: middle;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.9));
+}
+
+.map-node-locked .map-node-circle {
+  opacity: 0.4;
+}
+
+.map-node-locked .map-node-label {
+  opacity: 0.4;
+}
+
+/* Pulse animation for revealed nodes */
+@keyframes nodePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.map-node-pulse {
+  animation: nodePulse 2.5s ease infinite;
+}
+
+/* Constellation connecting lines */
+.constellation-line {
+  stroke: rgba(201,168,76,0.12);
+  stroke-width: 1;
+  stroke-dasharray: 6 4;
+  pointer-events: none;
+  transition: all 0.5s ease;
+}
+
+.constellation-line.revealed {
+  stroke: rgba(201,168,76,0.25);
+  stroke-dasharray: none;
+  animation: lineReveal 1.5s ease forwards;
+}
+
+@keyframes lineReveal {
+  from { stroke-dashoffset: 100; stroke-dasharray: 4 100; }
+  to { stroke-dashoffset: 0; stroke-dasharray: 100 0; }
+}
+
+/* Fog of war overlay for locked nodes */
+.map-fog {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* ───────── MAP UI ───────── */
+#map-ui {
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+#map-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+
+#map-mode-label {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--parchment-dark);
+  margin-top: 0.25rem;
+}
+
+#btn-back-to-menu,
+#btn-reset-game {
+  background: rgba(10,8,5,0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--parchment-dark);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#btn-back-to-menu:hover,
+#btn-reset-game:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+#btn-reset-game {
+  border-color: rgba(192,57,43,0.3);
+  color: rgba(192,57,43,0.7);
+}
+
+#btn-reset-game:hover {
+  border-color: var(--crimson);
+  color: var(--crimson);
+}
+
+#map-bottom-ui {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  display: flex;
+  gap: 0.75rem;
+  z-index: 100;
+}
+
+/* Progress indicator */
+#map-progress {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  margin-top: 0.5rem;
+  opacity: 0.7;
+}
+
+#map-progress .progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+#map-progress .progress-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(201,168,76,0.15);
+  transition: all 0.3s ease;
+}
+
+#map-progress .progress-dot.unlocked {
+  background: var(--gold);
+  box-shadow: 0 0 6px rgba(201,168,76,0.5);
+}
+
+/* ───────── BUILDING PANEL ───────── */
+#building-panel {
+  min-height: 100vh;
+  background: var(--void);
+  display: flex;
+  flex-direction: column;
+}
+
+#panel-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  position: relative;
+  background: linear-gradient(to bottom, rgba(201,168,76,0.04), transparent);
+}
+
+#btn-back-to-map {
+  background: none;
+  border: none;
+  color: var(--parchment-dark);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  padding: 0.25rem 0;
+  transition: color 0.2s;
+}
+
+#btn-back-to-map:hover { color: var(--gold); }
+
+#panel-building-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: var(--building-color, var(--gold));
+  margin-top: 0.5rem;
+  letter-spacing: 0.08em;
+}
+
+#panel-building-tagline {
+  font-style: italic;
+  color: var(--parchment-dark);
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+/* ───────── PHASE TABS ───────── */
+#phase-tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+#phase-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.phase-tab {
+  flex: 1;
+  min-width: 100px;
+  padding: 1rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--parchment-dark);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.phase-tab .tab-icon { font-size: 1.2rem; }
+.phase-tab .tab-label { font-size: 0.7rem; }
+.phase-tab .tab-ready { font-size: 0.55rem; color: #27ae60; }
+.phase-tab .tab-pending { font-size: 0.55rem; color: rgba(201,168,76,0.4); }
+
+.phase-tab:hover {
+  color: var(--parchment);
+  background: rgba(201,168,76,0.04);
+}
+
+.phase-tab.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* ───────── PHASE CONTENT ───────── */
+#phase-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.phase-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--parchment-dark);
+  font-style: italic;
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+/* World viewer */
+.world-viewer {
+  background: rgba(201,168,76,0.04);
+  border: 1px solid rgba(201,168,76,0.15);
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.world-viewer video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.world-viewer-placeholder {
+  text-align: center;
+  padding: 3rem;
+}
+
+.world-viewer-placeholder .placeholder-icon {
+  font-size: 3rem;
+  color: rgba(201,168,76,0.2);
+  display: block;
+  margin-bottom: 1rem;
+  animation: placeholderPulse 3s ease infinite;
+}
+
+@keyframes placeholderPulse {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.5; }
+}
+
+.world-viewer-placeholder .placeholder-text {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: rgba(201,168,76,0.3);
+  text-transform: uppercase;
+}
+
+/* ───────── INVESTOR NOTES ───────── */
+#investor-notes {
+  margin: 2rem;
+  padding: 1.5rem;
+  background: rgba(201,168,76,0.04);
+  border-left: 3px solid var(--gold);
+}
+
+.investor-notes-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.investor-notes-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--parchment-dark);
+}
+
+/* ───────── CLUE PANEL ───────── */
+#clue-panel {
+  margin: 0 2rem 2rem;
+  padding: 1.5rem;
+  background: rgba(155,89,182,0.06);
+  border: 1px solid rgba(155,89,182,0.2);
+  animation: clueFadeIn 0.5s ease;
+}
+
+@keyframes clueFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.clue-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  color: rgba(155,89,182,0.7);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.clue-hint {
+  font-style: italic;
+  color: var(--parchment-dark);
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.clue-input-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.clue-input {
+  flex: 1;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(155,89,182,0.3);
+  color: var(--parchment);
+  padding: 0.6rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.clue-input:focus {
+  border-color: rgba(155,89,182,0.7);
+}
+
+.clue-submit {
+  background: rgba(155,89,182,0.15);
+  border: 1px solid rgba(155,89,182,0.4);
+  color: var(--parchment);
+  padding: 0.6rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clue-submit:hover {
+  background: rgba(155,89,182,0.3);
+  border-color: rgba(155,89,182,0.7);
+}
+
+.clue-feedback {
+  margin-top: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+}
+
+.clue-feedback.correct { color: #27ae60; }
+.clue-feedback.incorrect { color: var(--crimson); }
+
+/* ───────── FINAL REVEAL ───────── */
+#final-reveal {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at center, rgba(201,168,76,0.12) 0%, transparent 60%),
+    var(--void);
+  padding: 2rem;
+  text-align: center;
+}
+
+#reveal-content {
+  animation: revealFadeIn 1.5s ease forwards;
+}
+
+@keyframes revealFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+#reveal-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 5rem);
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 60px rgba(201,168,76,0.5);
+  animation: titleGlow 4s ease infinite;
+}
+
+#reveal-text {
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1.8;
+  color: var(--parchment-dark);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+#btn-contact {
+  background: rgba(201,168,76,0.1);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 1rem 3rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#btn-contact:hover {
+  background: rgba(201,168,76,0.2);
+  box-shadow: 0 0 30px rgba(201,168,76,0.3);
+  transform: translateY(-2px);
+}
+
+/* ───────── UTILITY ───────── */
+.hidden { display: none !important; }
+
+/* ───────── COMPASS ───────── */
+.compass {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  opacity: 0.15;
+  pointer-events: none;
+  font-size: 3rem;
+  color: var(--gold);
+}
+
+/* ───────── SCROLLBAR ───────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(201,168,76,0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201,168,76,0.4);
+}
+
+/* ───────── RESPONSIVE ───────── */
+@media (max-width: 768px) {
+  .mode-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .mode-btn {
+    width: 100%;
+    max-width: 320px;
+    padding: 2rem;
+  }
+
+  #map-ui {
+    top: 0.75rem;
+  }
+
+  #map-title {
+    font-size: 0.85rem;
+  }
+
+  #btn-back-to-menu {
+    top: 0.5rem;
+    left: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.6rem;
+  }
+
+  #panel-header {
+    padding: 1rem 1.25rem;
+  }
+
+  #phase-content {
+    padding: 1.25rem;
+  }
+
+  .phase-tab {
+    min-width: 80px;
+    padding: 0.75rem 0.5rem;
+    font-size: 0.65rem;
+  }
+
+  #investor-notes,
+  #clue-panel {
+    margin: 0 1rem 1rem;
+    padding: 1rem;
+  }
+
+  .clue-input-row {
+    flex-direction: column;
+  }
+
+  .clue-submit {
+    width: 100%;
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mode-subtitle {
+    margin-bottom: 2.5rem;
+  }
+
+  #panel-building-name {
+    font-size: 1.3rem;
+  }
+
+  .world-viewer {
+    aspect-ratio: 4/3;
+  }
+}

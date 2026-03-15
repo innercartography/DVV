@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dunsmuir Visionary Village — Mystery Tour</title>
+  <meta name="description" content="Explore five historic buildings in Dunsmuir, California. Walk through time — past, present, and vision — in this interactive village tour.">
+  <meta name="theme-color" content="#0a0805">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+    <!-- Mode selector -->
+    <div id="mode-selector">
+      <div class="mode-title">DUNSMUIR VISIONARY VILLAGE</div>
+      <div class="mode-subtitle">A Village Begging To Be Born</div>
+      <div class="mode-buttons">
+        <button id="btn-investor" class="mode-btn">
+          <span class="mode-icon">◉</span>
+          <span class="mode-label">Investor Tour</span>
+          <span class="mode-desc">A guided journey through the portfolio</span>
+        </button>
+        <button id="btn-game" class="mode-btn">
+          <span class="mode-icon">◈</span>
+          <span class="mode-label">Mystery Tour</span>
+          <span class="mode-desc">Explore. Listen. Unlock the village.</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Map view -->
+    <div id="map-view" class="hidden">
+      <div id="map-container">
+        <img id="map-image" src="/map/dunsmuir.townmap2.jpg" alt="Dunsmuir Town Map">
+        <svg id="map-overlay"></svg>
+      </div>
+      <div id="map-ui">
+        <div id="map-title">DUNSMUIR VISIONARY VILLAGE</div>
+        <div id="map-mode-label"></div>
+        <div id="map-progress" class="hidden"></div>
+      </div>
+      <div id="map-bottom-ui">
+        <button id="btn-back-to-menu">← Back</button>
+        <button id="btn-reset-game" class="hidden">Reset Progress</button>
+      </div>
+    </div>
+
+    <!-- Building detail panel -->
+    <div id="building-panel" class="hidden">
+      <div id="panel-header">
+        <button id="btn-back-to-map">← Map</button>
+        <div id="panel-building-name"></div>
+        <div id="panel-building-tagline"></div>
+      </div>
+      
+      <div id="phase-tabs">
+        <!-- Generated dynamically -->
+      </div>
+      
+      <div id="phase-content">
+        <!-- Generated dynamically -->
+      </div>
+
+      <div id="investor-notes" class="hidden">
+        <!-- Investor mode only -->
+      </div>
+
+      <div id="clue-panel" class="hidden">
+        <!-- Game mode only -->
+      </div>
+    </div>
+
+    <!-- Final reveal overlay -->
+    <div id="final-reveal" class="hidden">
+      <div id="reveal-content">
+        <div id="reveal-title">THE VILLAGE IS REVEALED</div>
+        <div id="reveal-text"></div>
+        <div id="reveal-map-full"></div>
+        <button id="btn-contact">Speak With The Visionary</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="compass" aria-hidden="true">✦</div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

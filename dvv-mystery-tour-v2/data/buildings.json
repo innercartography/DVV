@@ -1,0 +1,274 @@
+{
+  "meta": {
+    "title": "Dunsmuir Visionary Village",
+    "subtitle": "A Village Begging To Be Born",
+    "description": "Five historic buildings in Dunsmuir, California — each one a chapter in the same story.",
+    "mapImage": "/map/dunsmuir.townmap2.jpg",
+    "mapDimensions": { "width": 1512, "height": 810 }
+  },
+  "buildings": [
+    {
+      "id": "hotel-california",
+      "name": "Hotel California Dunsmuir",
+      "shortName": "The Hotel",
+      "built": 1891,
+      "color": "#c0392b",
+      "colorName": "crimson",
+      "mapPosition": { "x": 1050, "y": 480 },
+      "status": "at-risk",
+      "tagline": "Where every traveler passed through",
+      "description": "Built in 1891 at the height of the railroad era. The anchor of downtown Dunsmuir. Structurally sound, architecturally extraordinary, currently vacant and at risk.",
+      "investorNotes": "Anchor property. Approximately 8,000 sq ft across three floors. Ground floor commercial potential — restaurant, bar, retail. Upper floors ideal for boutique hotel rooms or residential lofts. Railroad-era brick construction intact. Most significant single asset in the portfolio.",
+      "phases": {
+        "current": {
+          "label": "Present",
+          "icon": "◉",
+          "description": "The hotel as it stands today. Vacant, weathered, waiting. The bones are extraordinary.",
+          "worldUrl": null,
+          "videoUrl": null,
+          "audioUrl": null,
+          "photoUrl": null,
+          "ready": false,
+          "comingSoonText": "Matterport scan in progress"
+        },
+        "historical": {
+          "label": "Past",
+          "icon": "◈",
+          "description": "At its peak, this hotel was the social center of Dunsmuir. Railroad workers, travelers, and the whole commerce of a mountain town passed through these doors.",
+          "worldUrl": null,
+          "videoUrl": null,
+          "audioUrl": null,
+          "photoUrl": null,
+          "ready": false,
+          "comingSoonText": "Historical world generating"
+        },
+        "vision": {
+          "label": "Vision",
+          "icon": "◇",
+          "description": "Not a restoration. A transformation. A boutique hotel and gathering space at the center of a village for visionaries.",
+          "worldUrl": null,
+          "videoUrl": null,
+          "audioUrl": null,
+          "photoUrl": null,
+          "ready": false,
+          "comingSoonText": "Vision world coming soon"
+        }
+      },
+      "clue": {
+        "hiddenIn": "historical",
+        "type": "audio",
+        "hint": "Listen carefully at the front desk. A name is spoken.",
+        "answer": "california",
+        "unlocksBuilding": "california-theatre",
+        "unlocksMessage": "The California Theatre — across the street, holding a different kind of memory."
+      },
+      "constellation": {
+        "state": "revealed",
+        "starSize": 2.4,
+        "pulseColor": "#c0392b",
+        "glowIntensity": 0.8
+      }
+    },
+    {
+      "id": "california-theatre",
+      "name": "Historic California Theatre",
+      "shortName": "The Theatre",
+      "built": 1926,
+      "color": "#1abc9c",
+      "colorName": "teal",
+      "mapPosition": { "x": 1020, "y": 220 },
+      "status": "at-risk",
+      "tagline": "Where the community gathered to dream",
+      "description": "A 1926 performing arts theatre across the street from the hotel. Culture, performance, and community memory embedded in every wall.",
+      "investorNotes": "Performing arts venue with original stage infrastructure. Significant cultural asset for the community. Activation potential as event space, cinema, live performance. Connected to the Annex for expanded programming.",
+      "phases": {
+        "current": {
+          "label": "Present",
+          "icon": "◉",
+          "description": "The theatre stands silent. The stage waits.",
+          "ready": false,
+          "comingSoonText": "Scan scheduled"
+        },
+        "historical": {
+          "label": "Past",
+          "icon": "◈",
+          "description": "Performances, gatherings, the social fabric of a mountain town woven through decades of shared experience.",
+          "ready": false,
+          "comingSoonText": "Historical world generating"
+        },
+        "vision": {
+          "label": "Vision",
+          "icon": "◇",
+          "description": "A living cultural anchor for the village. Performances, screenings, gatherings for the community of visionaries.",
+          "ready": false,
+          "comingSoonText": "Vision world coming soon"
+        }
+      },
+      "clue": {
+        "hiddenIn": "historical",
+        "type": "visual",
+        "hint": "Find the poster on the back wall. What year does it show?",
+        "answer": "1947",
+        "unlocksBuilding": "theatre-annex",
+        "unlocksMessage": "The Annex — adjacent, connected, its own story."
+      },
+      "constellation": {
+        "state": "locked",
+        "starSize": 1.8,
+        "pulseColor": "#1abc9c",
+        "glowIntensity": 0.6
+      }
+    },
+    {
+      "id": "theatre-annex",
+      "name": "Theatre Annex Building",
+      "shortName": "The Annex",
+      "built": 1910,
+      "color": "#9b59b6",
+      "colorName": "violet",
+      "mapPosition": { "x": 1150, "y": 250 },
+      "status": "at-risk",
+      "tagline": "The hidden chamber next door",
+      "description": "Adjacent to the theatre. A building with its own identity — commercial, civic, layered with a different kind of history.",
+      "investorNotes": "Commercial building adjacent to theatre. Natural programming extension — rehearsal space, gallery, studio, workshop. Creates a connected cultural campus with the Theatre.",
+      "phases": {
+        "current": {
+          "label": "Present",
+          "icon": "◉",
+          "description": "A narrow building pressed up against the theatre. Quiet now, but the walls remember.",
+          "ready": false,
+          "comingSoonText": "Scan scheduled"
+        },
+        "historical": {
+          "label": "Past",
+          "icon": "◈",
+          "description": "For decades the Annex served as an extension of the theatre's life — storage, rehearsal, overflow. It had its own pulse.",
+          "ready": false,
+          "comingSoonText": "Historical world generating"
+        },
+        "vision": {
+          "label": "Vision",
+          "icon": "◇",
+          "description": "Gallery space, studios, workshops — the creative engine adjacent to the cultural stage.",
+          "ready": false,
+          "comingSoonText": "Vision world coming soon"
+        }
+      },
+      "clue": {
+        "hiddenIn": "current",
+        "type": "visual",
+        "hint": "Look for the mark on the threshold. Something was measured here.",
+        "answer": "threshold",
+        "unlocksBuilding": "castle-rock-inn",
+        "unlocksMessage": "Castle Rock Inn — down the block, a different kind of gathering place."
+      },
+      "constellation": {
+        "state": "locked",
+        "starSize": 1.4,
+        "pulseColor": "#9b59b6",
+        "glowIntensity": 0.5
+      }
+    },
+    {
+      "id": "castle-rock-inn",
+      "name": "Castle Rock Inn",
+      "shortName": "The Inn",
+      "built": 1905,
+      "color": "#e67e22",
+      "colorName": "amber",
+      "mapPosition": { "x": 620, "y": 430 },
+      "status": "at-risk",
+      "tagline": "Where travelers stayed and stories were traded",
+      "description": "Further down Cedar Street. A different scale, a different character. The Inn held a more intimate kind of history.",
+      "investorNotes": "Smaller scale property on Cedar. Boutique inn or residential conversion. Anchors the western end of the portfolio corridor. Creates bookend with Hotel California.",
+      "phases": {
+        "current": {
+          "label": "Present",
+          "icon": "◉",
+          "description": "Quieter than the hotel, smaller in scale — but the bones are honest. Cedar Street keeps its secrets.",
+          "ready": false,
+          "comingSoonText": "Scan scheduled"
+        },
+        "historical": {
+          "label": "Past",
+          "icon": "◈",
+          "description": "Travelers who couldn't get a room at the hotel ended up here. Different stories. Same mountain.",
+          "ready": false,
+          "comingSoonText": "Historical world generating"
+        },
+        "vision": {
+          "label": "Vision",
+          "icon": "◇",
+          "description": "A boutique inn reimagined — intimate, warm, the western anchor of the village corridor.",
+          "ready": false,
+          "comingSoonText": "Vision world coming soon"
+        }
+      },
+      "clue": {
+        "hiddenIn": "historical",
+        "type": "audio",
+        "hint": "Someone mentions where they came from. Follow that road.",
+        "answer": "railroad",
+        "unlocksBuilding": "energy-station",
+        "unlocksMessage": "The Energy Station — at the edge of town, where the journey begins and ends."
+      },
+      "constellation": {
+        "state": "locked",
+        "starSize": 1.4,
+        "pulseColor": "#e67e22",
+        "glowIntensity": 0.5
+      }
+    },
+    {
+      "id": "energy-station",
+      "name": "Dunsmuir Energy Station",
+      "shortName": "The Station",
+      "built": 1930,
+      "color": "#27ae60",
+      "colorName": "green",
+      "mapPosition": { "x": 1340, "y": 230 },
+      "status": "at-risk",
+      "tagline": "The threshold. Where arrivals begin.",
+      "description": "At the edge of the portfolio. A gas station, a threshold, the point of arrival and departure. In the village vision it becomes something entirely new.",
+      "investorNotes": "Corner property at the edge of downtown. High visibility. Unique adaptive reuse potential — energy hub, EV charging, community gateway. Conceptually the entrance to the village.",
+      "phases": {
+        "current": {
+          "label": "Present",
+          "icon": "◉",
+          "description": "A corner property at the edge of downtown. Faded signage, cracked concrete — but the location is everything.",
+          "ready": false,
+          "comingSoonText": "Scan scheduled"
+        },
+        "historical": {
+          "label": "Past",
+          "icon": "◈",
+          "description": "In its heyday the station was the first point of contact for anyone arriving in Dunsmuir. It marked the threshold.",
+          "ready": false,
+          "comingSoonText": "Historical world generating"
+        },
+        "vision": {
+          "label": "Vision",
+          "icon": "◇",
+          "description": "The gateway to the village. Where the journey ends and the new story begins.",
+          "ready": false,
+          "comingSoonText": "The final vision — coming soon"
+        }
+      },
+      "clue": {
+        "hiddenIn": "vision",
+        "type": "final",
+        "hint": "You have found all five. The village is revealed.",
+        "answer": null,
+        "unlocksBuilding": null,
+        "unlocksMessage": "You have walked through every building. You have heard every story. Now you know what this place is asking to become.",
+        "finalReveal": true
+      },
+      "constellation": {
+        "state": "locked",
+        "starSize": 1.6,
+        "pulseColor": "#27ae60",
+        "glowIntensity": 0.7
+      }
+    }
+  ]
+}
