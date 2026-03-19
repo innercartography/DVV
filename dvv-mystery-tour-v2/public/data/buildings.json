@@ -50,9 +50,9 @@
       },
       "clue": {
         "hiddenIn": "historical",
-        "type": "audio",
-        "hint": "Listen carefully at the front desk. A name is spoken — the name of a place across the street where stories were projected onto light.",
-        "answer": "california",
+        "type": "word",
+        "hint": "The hotel was built to receive people. Not just through a door — through a room whose whole purpose was the act of arrival. Architects gave this transitional space its own name. A word for the chamber between the outside world and the warmth within. What do they call it?",
+        "answer": "vestibule",
         "unlocksBuilding": "california-theatre",
         "unlocksMessage": "The California Theatre — across the street, holding a different kind of memory."
       },
@@ -119,10 +119,10 @@
         }
       },
       "clue": {
-        "hiddenIn": "historical",
-        "type": "visual",
-        "hint": "Find the poster on the back wall. What year does it show? A year when the whole world was rebuilding — and this theatre was already here.",
-        "answer": "1947",
+        "hiddenIn": "current",
+        "type": "word",
+        "hint": "The theatre has a name for the arch that frames its stage — a word borrowed from ancient Greek, carried through centuries of performance. It is mentioned in this building's own description. Read carefully. The answer is already here.",
+        "answer": "proscenium",
         "unlocksBuilding": "theatre-annex",
         "unlocksMessage": "The Annex — adjacent, connected, its own story."
       },
@@ -258,9 +258,9 @@
       },
       "clue": {
         "hiddenIn": "historical",
-        "type": "audio",
-        "hint": "Someone mentions how they got here. The iron path that brought everyone to Dunsmuir. What was it called?",
-        "answer": "railroad",
+        "type": "word",
+        "hint": "The Traveler has a word for people like themselves — those who move through without a fixed destination. Not a tourist, not a pilgrim. Someone who is always passing through, always arriving somewhere. The Inn was built for them. What is that word?",
+        "answer": "wayfarer",
         "unlocksBuilding": "energy-station",
         "unlocksMessage": "The Energy Station — at the edge of town, where the journey begins and ends."
       },
