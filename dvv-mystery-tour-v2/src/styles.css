@@ -1063,3 +1063,344 @@ body.loaded #app {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.6; }
 }
+
+/* ═══════════════════════════════════════════════════
+   GHOST PANEL — MoE Narrative Layer
+   ═══════════════════════════════════════════════════ */
+
+/* Ghost color tokens */
+:root {
+  --ghost-performer: #C49A6C;
+  --ghost-engineer:  #7EB8D4;
+  --ghost-traveler:  #A8D8A8;
+}
+
+/* Container */
+#ghost-panel {
+  margin: 0 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: ghostFadeIn 0.7s ease;
+}
+
+@keyframes ghostFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* A single ghost fragment card */
+.ghost-fragment {
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid;
+  background: rgba(255,255,255,0.02);
+  position: relative;
+  border-radius: 0 2px 2px 0;
+  transition: background 0.3s ease;
+}
+
+.ghost-fragment:hover {
+  background: rgba(255,255,255,0.04);
+}
+
+/* Ghost header row */
+.ghost-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.ghost-icon {
+  font-size: 1rem;
+  opacity: 0.9;
+  flex-shrink: 0;
+}
+
+.ghost-name {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.ghost-domain {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.15em;
+  opacity: 0.5;
+  margin-left: auto;
+  text-transform: uppercase;
+}
+
+/* Fragment text */
+.ghost-fragment-text {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--parchment-dark);
+}
+
+/* Type badge */
+.ghost-type-badge {
+  margin-top: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+/* Recalled state (already seen this fragment) */
+.ghost-fragment.recalled {
+  opacity: 0.65;
+  filter: saturate(0.8);
+}
+
+.ghost-fragment.recalled::after {
+  content: '(heard before)';
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.45rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.3;
+}
+
+/* ── Ghost color variants ── */
+.ghost-performer {
+  border-color: var(--ghost-performer);
+}
+.ghost-performer .ghost-icon,
+.ghost-performer .ghost-name {
+  color: var(--ghost-performer);
+}
+
+.ghost-engineer {
+  border-color: var(--ghost-engineer);
+}
+.ghost-engineer .ghost-icon,
+.ghost-engineer .ghost-name {
+  color: var(--ghost-engineer);
+}
+
+.ghost-traveler {
+  border-color: var(--ghost-traveler);
+}
+.ghost-traveler .ghost-icon,
+.ghost-traveler .ghost-name {
+  color: var(--ghost-traveler);
+}
+
+/* Secondary (counterpoint) badge */
+.ghost-counterpoint-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  opacity: 0.5;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+/* ── Map node ghost sigils ── */
+.map-node-sigil {
+  font-size: 10px;
+  pointer-events: none;
+}
+
+/* ── Map atmosphere phase shifts ── */
+#map-container.phase-deepening #map-image {
+  filter: sepia(0.4) brightness(0.8) saturate(0.85);
+  transition: filter 1.2s ease;
+}
+#map-container.phase-convergence #map-image {
+  filter: sepia(0.5) brightness(0.75) saturate(0.7) hue-rotate(-5deg);
+  transition: filter 1.5s ease;
+}
+
+/* Constellation line brightens with phase */
+#map-container.phase-deepening .constellation-line.revealed {
+  stroke: rgba(201,168,76,0.4);
+}
+#map-container.phase-convergence .constellation-line.revealed {
+  stroke: rgba(201,168,76,0.6);
+  stroke-width: 1.5;
+}
+
+/* ═══════════════════════════════════════════════════
+   SYNTHESIS OVERLAY — Convergence Moment
+   ═══════════════════════════════════════════════════ */
+
+#synthesis-overlay {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(196,154,108,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 60%, rgba(126,184,212,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(168,216,168,0.05) 0%, transparent 60%),
+    var(--void);
+  padding: 2rem;
+  text-align: center;
+  animation: synthesisReveal 1.5s ease forwards;
+}
+
+@keyframes synthesisReveal {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+#synthesis-content {
+  max-width: 640px;
+  width: 100%;
+}
+
+.synthesis-header {
+  margin-bottom: 3rem;
+  animation: synthHeaderRise 1.5s ease 0.3s both;
+}
+
+@keyframes synthHeaderRise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.synthesis-icon {
+  font-size: 1.5rem;
+  letter-spacing: 0.5rem;
+  color: var(--gold);
+  opacity: 0.5;
+  margin-bottom: 1.5rem;
+  animation: synthIconGlow 4s ease infinite;
+}
+
+@keyframes synthIconGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+.synthesis-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 0 40px rgba(201,168,76,0.3);
+}
+
+.synthesis-subtitle {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--parchment-dark);
+  line-height: 1.6;
+}
+
+/* Individual synthesis fragments — staggered reveal */
+#synthesis-fragments {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+  margin-bottom: 3rem;
+}
+
+.synthesis-fragment {
+  padding: 1.25rem 1.5rem;
+  border-left: 2px solid;
+  opacity: 0;
+  animation: synthFragReveal 0.8s ease forwards;
+}
+
+.synthesis-fragment:nth-child(1) { animation-delay: 1.2s; }
+.synthesis-fragment:nth-child(2) { animation-delay: 2.4s; }
+.synthesis-fragment:nth-child(3) { animation-delay: 3.6s; }
+
+@keyframes synthFragReveal {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.synthesis-fragment.ghost-performer { border-color: var(--ghost-performer); }
+.synthesis-fragment.ghost-engineer  { border-color: var(--ghost-engineer); }
+.synthesis-fragment.ghost-traveler  { border-color: var(--ghost-traveler); }
+
+.synthesis-fragment-name {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.synthesis-fragment.ghost-performer .synthesis-fragment-name { color: var(--ghost-performer); }
+.synthesis-fragment.ghost-engineer  .synthesis-fragment-name { color: var(--ghost-engineer); }
+.synthesis-fragment.ghost-traveler  .synthesis-fragment-name { color: var(--ghost-traveler); }
+
+.synthesis-fragment-text {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--parchment-dark);
+}
+
+/* Continue button — appears after all fragments have landed */
+#btn-synthesis-continue {
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.4);
+  color: var(--gold);
+  padding: 1rem 3rem;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  opacity: 0;
+  animation: synthBtnReveal 0.8s ease 5.2s forwards;
+}
+
+@keyframes synthBtnReveal {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#btn-synthesis-continue:hover {
+  background: rgba(201,168,76,0.16);
+  border-color: var(--gold);
+  box-shadow: 0 0 30px rgba(201,168,76,0.2);
+  transform: translateY(-2px);
+}
+
+/* ── Responsive ghost panel ── */
+@media (max-width: 768px) {
+  #ghost-panel {
+    margin: 0 1rem 1rem;
+  }
+
+  .ghost-fragment {
+    padding: 1rem 1.125rem;
+  }
+
+  .ghost-fragment-text {
+    font-size: 0.95rem;
+  }
+
+  #synthesis-overlay {
+    align-items: flex-start;
+    padding-top: 3rem;
+  }
+
+  .synthesis-fragment {
+    padding: 1rem 1.125rem;
+  }
+}

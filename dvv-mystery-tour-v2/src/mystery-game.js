@@ -1,6 +1,6 @@
 import { initMap } from './map.js';
 
-export function startMysteryGame(buildings, gameState, showMap, showBuilding) {
+export function startMysteryGame(buildings, gameState, moeState, showMap, showBuilding) {
   const intro = document.getElementById('mystery-intro');
   const beginBtn = document.getElementById('btn-begin-mystery');
 
@@ -16,13 +16,14 @@ export function startMysteryGame(buildings, gameState, showMap, showBuilding) {
       intro.classList.remove('fading-out');
       document.getElementById('map-mode-label').textContent = 'Mystery Tour — Explore the Village';
       showMap();
-      initMap(buildings, gameState, 'game', showBuilding);
+      initMap(buildings, gameState, moeState, 'game', showBuilding);
     }, 600);
   }, { once: true });
 }
 
 function hideAll() {
-  ['mode-selector', 'map-view', 'building-panel', 'final-reveal'].forEach(id => {
-    document.getElementById(id).classList.add('hidden');
+  ['mode-selector', 'map-view', 'building-panel', 'final-reveal', 'synthesis-overlay'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('hidden');
   });
 }

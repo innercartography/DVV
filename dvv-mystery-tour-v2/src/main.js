@@ -3,8 +3,15 @@ import { loadBuildings } from './building.js';
 import { initMap } from './map.js';
 import { startInvestorTour } from './investor-tour.js';
 import { startMysteryGame } from './mystery-game.js';
+import {
+  loadMoeState, saveMoeState, resetMoeState,
+  recordVisit, recordFragment, isSynthesisAvailable
+} from './progression.js';
+import { routeFragments, buildSynthesisFragments } from './moe-router.js';
 
 let buildings = [];
+let allGhosts = [];   // loaded from ghosts.json at startup
+let ghostsData = {};  // full ghosts.json, including synthesis key
 let currentMode = null;
 let currentBuilding = null;
 let currentPhase = 'current';
@@ -16,8 +23,16 @@ let gameState = {
   visitedPhases: {}
 };
 
+// MoE state — persisted separately to avoid desync
+let moeState = loadMoeState();
+
 async function init() {
-  buildings = await loadBuildings('/data/buildings.json');
+  // Load buildings and ghost definitions in parallel
+  [buildings, ghostsData] = await Promise.all([
+    loadBuildings('/data/buildings.json'),
+    fetch('/data/ghosts.json').then(r => r.json())
+  ]);
+  allGhosts = ghostsData.ghosts || [];
 
   // Load saved game state
   const saved = localStorage.getItem('dvv-game-state');
@@ -33,13 +48,14 @@ async function init() {
 
   document.getElementById('btn-game').addEventListener('click', () => {
     currentMode = 'game';
-    startMysteryGame(buildings, gameState, showMap, showBuilding);
+    startMysteryGame(buildings, gameState, moeState, showMap, showBuilding);
   });
+
 
   document.getElementById('btn-back-to-menu').addEventListener('click', showModeSelector);
   document.getElementById('btn-back-to-map').addEventListener('click', showMap);
 
-  // Reset game progress
+  // Reset game progress — clears BOTH state keys to prevent desync
   document.getElementById('btn-reset-game').addEventListener('click', () => {
     if (confirm('Reset all mystery tour progress? You will start over from the Hotel.')) {
       gameState = {
@@ -48,8 +64,9 @@ async function init() {
         visitedPhases: {}
       };
       saveGameState();
+      moeState = resetMoeState();
       showMap();
-      initMap(buildings, gameState, 'game', showBuilding);
+      initMap(buildings, gameState, moeState, 'game', showBuilding);
     }
   });
 
@@ -103,6 +120,9 @@ function showBuilding(buildingId, phase = 'current') {
 
   // Clue panel (game mode only)
   renderCluePanel(building);
+
+  // Ghost fragment panel (game mode, MoE layer)
+  renderGhostPanel(building);
 }
 
 function renderPhaseTabs(building) {
@@ -260,7 +280,7 @@ function renderCluePanel(building) {
       saveGameState();
 
       // Refresh the map in background
-      initMap(buildings, gameState, currentMode, showBuilding);
+      initMap(buildings, gameState, moeState, currentMode, showBuilding);
 
     } else {
       feedback.className = 'clue-feedback incorrect';
@@ -318,10 +338,90 @@ function saveGameState() {
 }
 
 function hideAll() {
-  ['mode-selector', 'map-view', 'building-panel', 'final-reveal', 'mystery-intro'].forEach(id => {
+  ['mode-selector', 'map-view', 'building-panel', 'final-reveal', 'mystery-intro', 'synthesis-overlay'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.classList.add('hidden');
   });
+}
+
+// ─── Ghost Panel (MoE narrative layer) ───────────────────────────────────────
+
+function renderGhostPanel(building) {
+  const panel = document.getElementById('ghost-panel');
+  if (!panel) return;
+
+  // Only show in game mode, and only if the building has expert routing
+  if (currentMode !== 'game' || !building.experts) {
+    panel.classList.add('hidden');
+    return;
+  }
+
+  // Record this visit (unique) and derive new state
+  moeState = recordVisit(moeState, building.id, buildings.length);
+
+  // Check for synthesis BEFORE routing fragments (convergence on 5th unique building)
+  if (isSynthesisAvailable(moeState, buildings.length)) {
+    saveMoeState(moeState);
+    // Refresh map so the 5th sigil renders and atmosphere shifts to convergence
+    initMap(buildings, gameState, moeState, 'game', showBuilding);
+    // Show synthesis overlay instead of standard ghost panel
+    renderSynthesisOverlay();
+    return;
+  }
+
+  // Route fragments for this building and progression state
+  const fragments = routeFragments(building, moeState, allGhosts);
+
+  if (!fragments.length) {
+    panel.classList.add('hidden');
+    return;
+  }
+
+  // Record which fragments were surfaced
+  fragments.forEach(f => {
+    if (f.type !== 'recalled') {
+      moeState = recordFragment(moeState, building.id, f.ghost.id, f.type);
+    }
+  });
+  saveMoeState(moeState);
+
+  // Refresh map to show ghost sigil on this building
+  initMap(buildings, gameState, moeState, 'game', showBuilding);
+
+  panel.classList.remove('hidden');
+  panel.innerHTML = fragments.map(f => `
+    <div class="ghost-fragment ${f.ghost.cssClass} ${f.type === 'recalled' ? 'recalled' : ''}">
+      <div class="ghost-header">
+        <span class="ghost-icon">${f.ghost.icon}</span>
+        <span class="ghost-name">${f.ghost.name}</span>
+        ${f.type === 'secondary' ? `<span class="ghost-counterpoint-badge" style="color:${f.ghost.color}">Counterpoint</span>` : ''}
+        <span class="ghost-domain">${f.ghost.domain}</span>
+      </div>
+      <div class="ghost-fragment-text">${f.text}</div>
+    </div>
+  `).join('');
+}
+
+function renderSynthesisOverlay() {
+  hideAll();
+  const overlay = document.getElementById('synthesis-overlay');
+  overlay.classList.remove('hidden');
+
+  const fragmentsEl = document.getElementById('synthesis-fragments');
+  const synthFragments = buildSynthesisFragments(ghostsData, allGhosts);
+
+  fragmentsEl.innerHTML = synthFragments.map(f => `
+    <div class="synthesis-fragment ${f.ghost.cssClass}">
+      <div class="synthesis-fragment-name">${f.ghost.icon} ${f.ghost.name}</div>
+      <div class="synthesis-fragment-text">${f.text}</div>
+    </div>
+  `).join('');
+
+  // Continue button transitions to the existing final-reveal flow
+  document.getElementById('btn-synthesis-continue').addEventListener('click', () => {
+    hideAll();
+    showMap();
+  }, { once: true });
 }
 
 // Audio — autoplay on first interaction, toggle with ♪ button

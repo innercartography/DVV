@@ -1,0 +1,51 @@
+{
+  "ghosts": [
+    {
+      "id": "performer",
+      "name": "The Performer",
+      "domain": "Cultural / Social Memory",
+      "tone": "Warm, theatrical, slightly melancholic",
+      "color": "#C49A6C",
+      "cssClass": "ghost-performer",
+      "icon": "◎",
+      "audioClass": "ambient-performer"
+    },
+    {
+      "id": "engineer",
+      "name": "The Engineer",
+      "domain": "Built Environment / Infrastructure",
+      "tone": "Precise, observational, quietly proud",
+      "color": "#7EB8D4",
+      "cssClass": "ghost-engineer",
+      "icon": "⊞",
+      "audioClass": "ambient-engineer"
+    },
+    {
+      "id": "traveler",
+      "name": "The Traveler",
+      "domain": "Movement / Geography / Outsider Lens",
+      "tone": "Curious, transient, poetic",
+      "color": "#A8D8A8",
+      "cssClass": "ghost-traveler",
+      "icon": "◌",
+      "audioClass": "ambient-traveler"
+    }
+  ],
+  "synthesis": {
+    "title": "The Voices Converge",
+    "fragments": [
+      {
+        "ghost": "performer",
+        "text": "Every room I told you about had an audience. The hotel lobby. The theatre seats. The parlor at the Inn. The village is not a collection of buildings — it is a collection of gatherings waiting to happen again."
+      },
+      {
+        "ghost": "engineer",
+        "text": "Five buildings. Twelve-inch brick walls, old-growth timber, a foundation set during the railroad era that has not moved in a century. The material facts argue for preservation. The material facts always win."
+      },
+      {
+        "ghost": "traveler",
+        "text": "I have passed through here more times than I can count. On the train, in a car, on foot. Every time, Dunsmuir looked like a place that was almost something. This time, I am staying."
+      }
+    ]
+  }
+}

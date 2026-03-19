@@ -11,10 +11,17 @@ const CONSTELLATION_EDGES = [
   ['castle-rock-inn', 'energy-station']
 ];
 
-export function initMap(buildings, gameState, mode, onBuildingClick) {
+export function initMap(buildings, gameState, moeState, mode, onBuildingClick) {
   const svg = document.getElementById('map-overlay');
   const img = document.getElementById('map-image');
+  const mapContainer = document.getElementById('map-container');
   svg.innerHTML = '';
+
+  // Apply atmosphere class based on MoE tour phase
+  mapContainer.classList.remove('phase-exploring', 'phase-deepening', 'phase-convergence');
+  if (mode === 'game' && moeState) {
+    mapContainer.classList.add(`phase-${moeState.tourPhase}`);
+  }
 
   document.getElementById('map-mode-label').textContent =
     mode === 'investor' ? 'Investor Tour' : 'Mystery Tour — Explore the Village';
@@ -144,6 +151,21 @@ export function initMap(buildings, gameState, mode, onBuildingClick) {
       label.setAttribute('class', 'map-node-label');
       label.setAttribute('opacity', isUnlocked ? '0.9' : '0.3');
       label.textContent = building.shortName;
+
+      // Ghost sigil for visited buildings (game mode, MoE layer)
+      if (mode === 'game' && moeState && moeState.visited.includes(building.id) && building.experts) {
+        const primaryGhostId = building.experts.primary;
+        const ghostIconMap = { performer: '◎', engineer: '⊞', traveler: '◌' };
+        const ghostColorMap = { performer: '#C49A6C', engineer: '#7EB8D4', traveler: '#A8D8A8' };
+        const sigil = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        sigil.setAttribute('x', x + baseR + 6);
+        sigil.setAttribute('y', y + 4);
+        sigil.setAttribute('class', 'map-node-sigil');
+        sigil.setAttribute('fill', ghostColorMap[primaryGhostId] || '#C49A6C');
+        sigil.setAttribute('opacity', '0.8');
+        sigil.textContent = ghostIconMap[primaryGhostId] || '◎';
+        g.appendChild(sigil);
+      }
 
       g.appendChild(glow);
       g.appendChild(circle);

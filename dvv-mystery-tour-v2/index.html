@@ -63,6 +63,11 @@
         <!-- Generated dynamically -->
       </div>
 
+      <!-- Ghost fragment panel — MoE narrative layer, game mode only -->
+      <div id="ghost-panel" class="hidden">
+        <!-- Injected by renderGhostPanel() in main.js -->
+      </div>
+
       <div id="investor-notes" class="hidden">
         <!-- Investor mode only -->
       </div>
@@ -88,7 +93,7 @@
       </div>
     </div>
 
-    <!-- Final reveal overlay -->
+    <!-- Final reveal overlay (clue completion) -->
     <div id="final-reveal" class="hidden">
       <div id="reveal-content">
         <div class="reveal-stars" aria-hidden="true"></div>
@@ -96,6 +101,21 @@
         <div id="reveal-text"></div>
         <div id="reveal-buildings-summary"></div>
         <button id="btn-contact">Speak With The Visionary</button>
+      </div>
+    </div>
+
+    <!-- Synthesis overlay (MoE convergence — all 5 buildings visited) -->
+    <div id="synthesis-overlay" class="hidden">
+      <div id="synthesis-content">
+        <div class="synthesis-header">
+          <div class="synthesis-icon">◈ ◎ ⊞ ◌ ◈</div>
+          <div class="synthesis-title">THE VOICES CONVERGE</div>
+          <div class="synthesis-subtitle">You have walked through every building. Now the experts speak together.</div>
+        </div>
+        <div id="synthesis-fragments">
+          <!-- Injected by renderSynthesisOverlay() in main.js -->
+        </div>
+        <button id="btn-synthesis-continue">Continue To The Village</button>
       </div>
     </div>
   </div>
