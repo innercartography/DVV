@@ -61,6 +61,20 @@
         "starSize": 2.4,
         "pulseColor": "#c0392b",
         "glowIntensity": 0.8
+      },
+      "experts": {
+        "primary": "performer",
+        "secondary": "engineer",
+        "fragments": {
+          "performer": {
+            "primary": "The lobby held its breath between arrivals. Railroad men, drummers, travelers moving up and down the Sacramento Canyon — this room was the first warm thing they touched after days in the cars. The bar never closed during rush hour. Neither did the piano.",
+            "secondary": "I have played every room on this block. The hotel held the loudest crowds. But the ones who stayed the longest were not the loud ones. Silence is what a building remembers."
+          },
+          "engineer": {
+            "primary": "The brickwork here is Italianate — corbeled cornices, round-arch windows, load-bearing all the way up. Someone in 1891 wanted this building to outlast memory. The mortar is stronger than the plans for it. That is not an accident.",
+            "secondary": "Three floors. Eight-inch unreinforced brick on the party walls. The staircase is still plumb. In a seismic zone, after a hundred and thirty years, that is not luck — that is the right materials chosen by someone who understood the mountain."
+          }
+        }
       }
     },
     {
@@ -99,7 +113,7 @@
         "vision": {
           "label": "Vision",
           "icon": "◇",
-          "description": "More than a theatre — an intersection of art and technology. The main floor hosts projection-mapped immersive cinema, sensory experiences you can feel and smell, live performances and hackathons side by side. The upper floors become a makerspace — 3D printers, conference rooms, studios for artists and engineers in residence. People will come from across the world for this. And along the way, the visionaries who arrive will help build what it becomes.",
+          "description": "This is for the people of Dunsmuir first. The tools are the entry point — 3D printers, projection mapping, immersive cinema, maker space, hackathon floors — meeting people where they are and bringing something extraordinary to a small mountain town. The theatre becomes the seed of a guild system for tech and art. The town builds it. The community shapes it. And what gets created here will draw visionaries from everywhere who want to be part of something real.",
           "photoUrl": "/buildings/california-theatre/assets/vision.png",
           "ready": true
         }
@@ -117,6 +131,20 @@
         "starSize": 1.8,
         "pulseColor": "#1abc9c",
         "glowIntensity": 0.6
+      },
+      "experts": {
+        "primary": "performer",
+        "secondary": "traveler",
+        "fragments": {
+          "performer": {
+            "primary": "Saturday nights. The whole town. Someone always had to be asked three times to move so the family behind them could see. The projector's cone of light cut through cigarette smoke and the particular silence of three hundred people holding the same breath. That silence — that is what this room is still waiting for.",
+            "secondary": "The theatre is not empty. Every room that has ever held an audience retains the shape of one. Sit in any seat. Close your eyes. You will feel the pressure of the people who sat here before you."
+          },
+          "traveler": {
+            "primary": "I came through on the night train once and saw the marquee from the platform. Just four letters — SHOW — lit against the canyon wall. Dunsmuir glowing. You don't forget a town that announces itself like that.",
+            "secondary": "From the train you see the backs of buildings. The alleys, the loading doors, the parts towns don't show you on purpose. The back of this theatre is as honest as the front. Not many buildings can say that."
+          }
+        }
       }
     },
     {
@@ -172,6 +200,20 @@
         "starSize": 1.4,
         "pulseColor": "#9b59b6",
         "glowIntensity": 0.5
+      },
+      "experts": {
+        "primary": "engineer",
+        "secondary": "performer",
+        "fragments": {
+          "engineer": {
+            "primary": "The threshold between this building and the theatre was worn smooth by a thousand crossings. I measured it once — three inches lower than when it was poured. Thirty years of shoes. The wood holds the shape of what happened here better than any ledger ever could.",
+            "secondary": "The party wall between this building and the theatre is shared — one pour, two addresses. If you press your hand to it you are touching both buildings at once. That is rarely true of anything."
+          },
+          "performer": {
+            "primary": "They called it the backstage for the backstage. The actors who did not feel ready went here. The ones who felt too ready. It was the hinge between intention and execution — the last moment before something became real.",
+            "secondary": "Every performance has a room like this. The room before the room. Whatever you are building in this village, you will need one."
+          }
+        }
       }
     },
     {
@@ -227,6 +269,20 @@
         "starSize": 1.4,
         "pulseColor": "#e67e22",
         "glowIntensity": 0.5
+      },
+      "experts": {
+        "primary": "traveler",
+        "secondary": "performer",
+        "fragments": {
+          "traveler": {
+            "primary": "The railroad brought everyone to Dunsmuir and not everyone made it to the Hotel. The Inn held the overflow — the ones who arrived late, or couldn't afford the tariff, or just preferred a smaller room with a pine tree outside the window. Those were the ones I talked to. They had better stories.",
+            "secondary": "A town is measured by how it treats the people passing through. By that measure, Dunsmuir has always been generous. This building is evidence."
+          },
+          "performer": {
+            "primary": "There was a parlor once. Someone played the same hymn every Sunday morning. You could hear it from the street, muffled by the porch roof. The whole neighborhood organized its Sundays around that sound without ever deciding to.",
+            "secondary": "The Hotel had the crowds. The Theatre had the shows. The Inn had the conversations. Do not underestimate which of those three built the most loyalty."
+          }
+        }
       }
     },
     {
@@ -281,6 +337,20 @@
         "starSize": 1.6,
         "pulseColor": "#27ae60",
         "glowIntensity": 0.7
+      },
+      "experts": {
+        "primary": "traveler",
+        "secondary": "engineer",
+        "fragments": {
+          "traveler": {
+            "primary": "This is where I always knew I had arrived. Not the station platform — here. When the attendant waved you in, when the pumps came alive, when someone filled your tank and asked where you were heading. Dunsmuir always knew where everyone was going. It just kept some of them.",
+            "secondary": "Every town has a threshold. A moment when you know you are inside rather than passing through. This corner is Dunsmuir's threshold. Whatever it becomes next, it needs to keep doing that one thing."
+          },
+          "engineer": {
+            "primary": "The canopy over this forecourt is load-bearing on three sides. Standard-issue for 1930 — the same specification used across three hundred stations in California. Every town got the same bones. Not every town figured out what to do with them.",
+            "secondary": "Solar canopy here would be straightforward. Ten panels on the existing frame, EV charging on the island footprint. The infrastructure wants to be repurposed. That does not happen often."
+          }
+        }
       }
     }
   ]
