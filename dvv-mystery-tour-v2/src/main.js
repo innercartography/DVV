@@ -282,6 +282,32 @@ function showFinalReveal() {
   document.getElementById('reveal-text').textContent =
     'You have walked through every building. You have heard every story. You have found every clue. Now you know what this place is asking to become. A village for visionaries. Built not from nostalgia but from vision. The question is: will you help build it?';
 
+  // Build a summary of all discovered buildings
+  const summary = document.getElementById('reveal-buildings-summary');
+  if (summary) {
+    summary.innerHTML = buildings.map(b => `
+      <div class="reveal-building-card" style="--card-color: ${b.color}">
+        <div class="reveal-card-name">${b.shortName}</div>
+        <div class="reveal-card-year">Est. ${b.built}</div>
+      </div>
+    `).join('');
+  }
+
+  // Create star particles for the reveal
+  const starsContainer = reveal.querySelector('.reveal-stars');
+  if (starsContainer) {
+    starsContainer.innerHTML = '';
+    for (let i = 0; i < 40; i++) {
+      const star = document.createElement('div');
+      star.className = 'reveal-star';
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.animationDelay = `${Math.random() * 3}s`;
+      star.style.animationDuration = `${2 + Math.random() * 3}s`;
+      starsContainer.appendChild(star);
+    }
+  }
+
   document.getElementById('btn-contact').addEventListener('click', () => {
     window.location.href = 'mailto:mark@dunsmuirvillage.com?subject=I walked through the Mystery Tour';
   });
@@ -292,8 +318,38 @@ function saveGameState() {
 }
 
 function hideAll() {
-  ['mode-selector', 'map-view', 'building-panel', 'final-reveal'].forEach(id => {
-    document.getElementById(id).classList.add('hidden');
+  ['mode-selector', 'map-view', 'building-panel', 'final-reveal', 'mystery-intro'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('hidden');
+  });
+}
+
+// Audio — autoplay on first interaction, toggle with ♪ button
+const audioToggle = document.getElementById('audio-toggle');
+let ambientAudio = new Audio('/audio/ambient.mp3');
+ambientAudio.loop = true;
+ambientAudio.volume = 1.0;
+
+// Browsers block autoplay — start on first user interaction
+function startAudioOnce() {
+  ambientAudio.play().catch(() => {});
+  if (audioToggle) audioToggle.classList.add('playing');
+  document.removeEventListener('click', startAudioOnce);
+  document.removeEventListener('keydown', startAudioOnce);
+}
+document.addEventListener('click', startAudioOnce);
+document.addEventListener('keydown', startAudioOnce);
+
+if (audioToggle) {
+  audioToggle.addEventListener('click', (e) => {
+    e.stopPropagation(); // don't trigger startAudioOnce twice
+    if (!ambientAudio.paused) {
+      ambientAudio.pause();
+      audioToggle.classList.remove('playing');
+    } else {
+      ambientAudio.play().catch(() => {});
+      audioToggle.classList.add('playing');
+    }
   });
 }
 

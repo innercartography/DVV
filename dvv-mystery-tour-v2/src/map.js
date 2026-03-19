@@ -1,5 +1,8 @@
 let resizeTimer = null;
 
+// Set to true to enable click-to-coordinate logging on the map
+const DEBUG_COORDS = true;
+
 // Constellation connection order — defines edges between buildings
 const CONSTELLATION_EDGES = [
   ['hotel-california', 'california-theatre'],
@@ -31,8 +34,8 @@ export function initMap(buildings, gameState, mode, onBuildingClick) {
 
   function renderNodes() {
     svg.innerHTML = '';
-    const imgW = img.naturalWidth || 1512;
-    const imgH = img.naturalHeight || 810;
+    const imgW = img.naturalWidth || 1528;
+    const imgH = img.naturalHeight || 856;
 
     svg.setAttribute('viewBox', `0 0 ${imgW} ${imgH}`);
     svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
@@ -167,6 +170,21 @@ export function initMap(buildings, gameState, mode, onBuildingClick) {
 
   // Always render nodes immediately with fallback dimensions
   renderNodes();
+
+  // Debug: click anywhere on map to log coordinates in viewBox space
+  if (DEBUG_COORDS) {
+    svg.style.pointerEvents = 'all';
+    svg.addEventListener('click', (e) => {
+      const rect = svg.getBoundingClientRect();
+      const imgW = img.naturalWidth || 1528;
+      const imgH = img.naturalHeight || 856;
+      const scaleX = imgW / rect.width;
+      const scaleY = imgH / rect.height;
+      const x = Math.round((e.clientX - rect.left) * scaleX);
+      const y = Math.round((e.clientY - rect.top) * scaleY);
+      console.log(`📍 Map click: { "x": ${x}, "y": ${y} }`);
+    });
+  }
 
   // Re-render when image loads (to get exact dimensions)
   if (!img.complete) {

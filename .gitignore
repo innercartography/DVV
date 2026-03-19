@@ -24,3 +24,10 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Large source assets (tracked in manifest, not git)
+assets-source/**/*.ply
+assets-source/**/*.splat
+assets-source/**/*.glb
+assets-source/**/*.mp4
+assets-source/**/*.mov

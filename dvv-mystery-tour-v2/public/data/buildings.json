@@ -4,7 +4,7 @@
     "subtitle": "A Village Begging To Be Born",
     "description": "Five historic buildings in Dunsmuir, California — each one a chapter in the same story.",
     "mapImage": "/map/dunsmuir.townmap2.jpg",
-    "mapDimensions": { "width": 1512, "height": 810 }
+    "mapDimensions": { "width": 1528, "height": 856 }
   },
   "buildings": [
     {
@@ -14,50 +14,44 @@
       "built": 1891,
       "color": "#c0392b",
       "colorName": "crimson",
-      "mapPosition": { "x": 1050, "y": 480 },
+      "mapPosition": { "x": 1181, "y": 534 },
       "status": "at-risk",
       "tagline": "Where every traveler passed through",
       "description": "Built in 1891 at the height of the railroad era. The anchor of downtown Dunsmuir. Structurally sound, architecturally extraordinary, currently vacant and at risk.",
       "investorNotes": "Anchor property. Approximately 8,000 sq ft across three floors. Ground floor commercial potential — restaurant, bar, retail. Upper floors ideal for boutique hotel rooms or residential lofts. Railroad-era brick construction intact. Most significant single asset in the portfolio.",
+      "locations": [
+        { "id": "exterior", "name": "Exterior", "order": 1, "phases": { "past": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "present": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "future": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false } } },
+        { "id": "lobby", "name": "Lobby", "order": 2, "phases": { "past": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "present": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "future": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false } } },
+        { "id": "guest-floor", "name": "Guest Floor", "order": 3, "phases": { "past": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "present": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "future": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false } } },
+        { "id": "rooftop", "name": "Rooftop", "order": 4, "phases": { "past": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "present": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "future": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false } } }
+      ],
       "phases": {
         "current": {
           "label": "Present",
           "icon": "◉",
-          "description": "The hotel as it stands today. Vacant, weathered, waiting. The bones are extraordinary.",
-          "worldUrl": null,
-          "videoUrl": null,
-          "audioUrl": null,
-          "photoUrl": null,
-          "ready": false,
-          "comingSoonText": "Matterport scan in progress"
+          "description": "The hotel as it stands today. Vacant, weathered, waiting. The bones are extraordinary — three stories of railroad-era brick, arched windows, cornices that have survived more than a century. Walk inside and imagine what this place is asking to become.",
+          "photoUrl": "/buildings/hotel-california/assets/current.png",
+          "ready": true
         },
         "historical": {
           "label": "Past",
           "icon": "◈",
-          "description": "At its peak, this hotel was the social center of Dunsmuir. Railroad workers, travelers, and the whole commerce of a mountain town passed through these doors.",
-          "worldUrl": null,
-          "videoUrl": null,
-          "audioUrl": null,
-          "photoUrl": null,
-          "ready": false,
-          "comingSoonText": "Historical world generating"
+          "description": "At its peak, this hotel was the social center of Dunsmuir. Railroad workers drank at the bar. Travelers checked in with luggage that smelled of pine and coal smoke. The whole commerce of a mountain town passed through these doors. Listen carefully — the walls still carry those voices.",
+          "photoUrl": "/buildings/hotel-california/assets/historical.png",
+          "ready": true
         },
         "vision": {
           "label": "Vision",
           "icon": "◇",
-          "description": "Not a restoration. A transformation. A boutique hotel and gathering space at the center of a village for visionaries.",
-          "worldUrl": null,
-          "videoUrl": null,
-          "audioUrl": null,
-          "photoUrl": null,
-          "ready": false,
-          "comingSoonText": "Vision world coming soon"
+          "description": "Not a restoration. A transformation. A boutique hotel and gathering space at the center of a village for visionaries. The ground floor hums with a restaurant and bar. The upper floors hold rooms where artists, founders, and dreamers come to think differently. The building becomes what it always was — the heart.",
+          "photoUrl": "/buildings/hotel-california/assets/vision.png",
+          "ready": true
         }
       },
       "clue": {
         "hiddenIn": "historical",
         "type": "audio",
-        "hint": "Listen carefully at the front desk. A name is spoken.",
+        "hint": "Listen carefully at the front desk. A name is spoken — the name of a place across the street where stories were projected onto light.",
         "answer": "california",
         "unlocksBuilding": "california-theatre",
         "unlocksMessage": "The California Theatre — across the street, holding a different kind of memory."
@@ -76,38 +70,44 @@
       "built": 1926,
       "color": "#1abc9c",
       "colorName": "teal",
-      "mapPosition": { "x": 1020, "y": 220 },
+      "mapPosition": { "x": 1144, "y": 297 },
       "status": "at-risk",
       "tagline": "Where the community gathered to dream",
       "description": "A 1926 performing arts theatre across the street from the hotel. Culture, performance, and community memory embedded in every wall.",
       "investorNotes": "Performing arts venue with original stage infrastructure. Significant cultural asset for the community. Activation potential as event space, cinema, live performance. Connected to the Annex for expanded programming.",
+      "locations": [
+        { "id": "exterior", "name": "Exterior", "order": 1, "phases": { "past": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "present": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "future": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false } } },
+        { "id": "auditorium", "name": "Auditorium", "order": 2, "phases": { "past": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "present": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "future": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false } } },
+        { "id": "stage", "name": "Stage", "order": 3, "phases": { "past": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "present": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "future": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false } } },
+        { "id": "balcony", "name": "Balcony", "order": 4, "phases": { "past": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "present": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "future": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false } } }
+      ],
       "phases": {
         "current": {
           "label": "Present",
           "icon": "◉",
-          "description": "The theatre stands silent. The stage waits.",
-          "ready": false,
-          "comingSoonText": "Scan scheduled"
+          "description": "The theatre stands silent. The stage waits in the dark. Rows of seats face forward like a congregation without a sermon. Dust floats through shafts of light from broken windows. The proscenium arch — still perfect — frames nothing but possibility.",
+          "photoUrl": "/buildings/california-theatre/assets/current.png",
+          "ready": true
         },
         "historical": {
           "label": "Past",
           "icon": "◈",
-          "description": "Performances, gatherings, the social fabric of a mountain town woven through decades of shared experience.",
-          "ready": false,
-          "comingSoonText": "Historical world generating"
+          "description": "On Saturday nights the whole town came. Performances, films, community meetings — the theatre was the living room of Dunsmuir. Generations sat in these seats and shared the experience of watching something together. The projector beam cut through the dark like a compass needle pointing toward belonging.",
+          "photoUrl": "/buildings/california-theatre/assets/historical.png",
+          "ready": true
         },
         "vision": {
           "label": "Vision",
           "icon": "◇",
-          "description": "A living cultural anchor for the village. Performances, screenings, gatherings for the community of visionaries.",
-          "ready": false,
-          "comingSoonText": "Vision world coming soon"
+          "description": "A living cultural anchor for the village. Intimate performances, independent film screenings, community gatherings for the new generation of visionaries. The stage comes alive again — not with nostalgia, but with purpose.",
+          "photoUrl": "/buildings/california-theatre/assets/vision.png",
+          "ready": true
         }
       },
       "clue": {
         "hiddenIn": "historical",
         "type": "visual",
-        "hint": "Find the poster on the back wall. What year does it show?",
+        "hint": "Find the poster on the back wall. What year does it show? A year when the whole world was rebuilding — and this theatre was already here.",
         "answer": "1947",
         "unlocksBuilding": "theatre-annex",
         "unlocksMessage": "The Annex — adjacent, connected, its own story."
@@ -126,38 +126,43 @@
       "built": 1910,
       "color": "#9b59b6",
       "colorName": "violet",
-      "mapPosition": { "x": 1150, "y": 250 },
+      "mapPosition": { "x": 1217, "y": 351 },
       "status": "at-risk",
       "tagline": "The hidden chamber next door",
       "description": "Adjacent to the theatre. A building with its own identity — commercial, civic, layered with a different kind of history.",
       "investorNotes": "Commercial building adjacent to theatre. Natural programming extension — rehearsal space, gallery, studio, workshop. Creates a connected cultural campus with the Theatre.",
+      "locations": [
+        { "id": "exterior", "name": "Exterior", "order": 1, "phases": { "past": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "present": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "future": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false } } },
+        { "id": "gallery-space", "name": "Gallery Space", "order": 2, "phases": { "past": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "present": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "future": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false } } },
+        { "id": "upper-floor", "name": "Upper Floor", "order": 3, "phases": { "past": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "present": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "future": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false } } }
+      ],
       "phases": {
         "current": {
           "label": "Present",
           "icon": "◉",
-          "description": "A narrow building pressed up against the theatre. Quiet now, but the walls remember.",
-          "ready": false,
-          "comingSoonText": "Scan scheduled"
+          "description": "A narrow building pressed up against the theatre. The walls share vibrations. Dark inside, with peeling paint and exposed brick telling stories in layers. Quiet now, but the walls remember every rehearsal, every argument, every midnight brainstorm that happened here.",
+          "photoUrl": "/buildings/theatre-annex/assets/current.png",
+          "ready": true
         },
         "historical": {
           "label": "Past",
           "icon": "◈",
-          "description": "For decades the Annex served as an extension of the theatre's life — storage, rehearsal, overflow. It had its own pulse.",
-          "ready": false,
-          "comingSoonText": "Historical world generating"
+          "description": "For decades the Annex served as an extension of the theatre's life — storage, rehearsal, overflow. Actors warmed up here. Sets were built and dismantled. It had its own pulse, syncopated against the main stage's rhythm. The threshold between buildings was worn smooth by a thousand crossings.",
+          "photoUrl": "/buildings/theatre-annex/assets/historical.png",
+          "ready": true
         },
         "vision": {
           "label": "Vision",
           "icon": "◇",
-          "description": "Gallery space, studios, workshops — the creative engine adjacent to the cultural stage.",
-          "ready": false,
-          "comingSoonText": "Vision world coming soon"
+          "description": "Gallery space, studios, workshops — the creative engine adjacent to the cultural stage. Artists in residence work here. The walls that once held costumes now hold canvases. The creative campus is complete.",
+          "photoUrl": "/buildings/theatre-annex/assets/vision.png",
+          "ready": true
         }
       },
       "clue": {
         "hiddenIn": "current",
         "type": "visual",
-        "hint": "Look for the mark on the threshold. Something was measured here.",
+        "hint": "Look for the mark on the threshold. Something was measured here — a word that means the crossing between what was and what will be.",
         "answer": "threshold",
         "unlocksBuilding": "castle-rock-inn",
         "unlocksMessage": "Castle Rock Inn — down the block, a different kind of gathering place."
@@ -176,38 +181,43 @@
       "built": 1905,
       "color": "#e67e22",
       "colorName": "amber",
-      "mapPosition": { "x": 620, "y": 430 },
+      "mapPosition": { "x": 704, "y": 588 },
       "status": "at-risk",
       "tagline": "Where travelers stayed and stories were traded",
       "description": "Further down Cedar Street. A different scale, a different character. The Inn held a more intimate kind of history.",
       "investorNotes": "Smaller scale property on Cedar. Boutique inn or residential conversion. Anchors the western end of the portfolio corridor. Creates bookend with Hotel California.",
+      "locations": [
+        { "id": "exterior", "name": "Exterior", "order": 1, "phases": { "past": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "present": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "future": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false } } },
+        { "id": "main-room", "name": "Main Room", "order": 2, "phases": { "past": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "present": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "future": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false } } },
+        { "id": "kitchen", "name": "Kitchen", "order": 3, "phases": { "past": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "present": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "future": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false } } }
+      ],
       "phases": {
         "current": {
           "label": "Present",
           "icon": "◉",
-          "description": "Quieter than the hotel, smaller in scale — but the bones are honest. Cedar Street keeps its secrets.",
-          "ready": false,
-          "comingSoonText": "Scan scheduled"
+          "description": "Quieter than the hotel, smaller in scale — but the bones are honest. Cedar Street keeps its secrets. The covered porch sags just enough to look like it's exhaling after a long wait. Pine trees stand guard. The Inn doesn't shout — it whispers.",
+          "photoUrl": "/buildings/castle-rock-inn/assets/current.png",
+          "ready": true
         },
         "historical": {
           "label": "Past",
           "icon": "◈",
-          "description": "Travelers who couldn't get a room at the hotel ended up here. Different stories. Same mountain.",
-          "ready": false,
-          "comingSoonText": "Historical world generating"
+          "description": "Travelers who couldn't get a room at the hotel ended up here — and were glad they did. Different stories. Same mountain. The parlor was where strangers became companions over firelight. Someone always had a story about the railroad.",
+          "photoUrl": "/buildings/castle-rock-inn/assets/historical.png",
+          "ready": true
         },
         "vision": {
           "label": "Vision",
           "icon": "◇",
-          "description": "A boutique inn reimagined — intimate, warm, the western anchor of the village corridor.",
-          "ready": false,
-          "comingSoonText": "Vision world coming soon"
+          "description": "A boutique inn reimagined — intimate, warm, the western anchor of the village corridor. Rooms designed for people who came to think, to write, to build something. Mountain views from every window. The kind of place you arrive at and immediately start planning your return.",
+          "photoUrl": "/buildings/castle-rock-inn/assets/vision.png",
+          "ready": true
         }
       },
       "clue": {
         "hiddenIn": "historical",
         "type": "audio",
-        "hint": "Someone mentions where they came from. Follow that road.",
+        "hint": "Someone mentions how they got here. The iron path that brought everyone to Dunsmuir. What was it called?",
         "answer": "railroad",
         "unlocksBuilding": "energy-station",
         "unlocksMessage": "The Energy Station — at the edge of town, where the journey begins and ends."
@@ -226,38 +236,41 @@
       "built": 1930,
       "color": "#27ae60",
       "colorName": "green",
-      "mapPosition": { "x": 1340, "y": 230 },
+      "mapPosition": { "x": 1390, "y": 384 },
       "status": "at-risk",
       "tagline": "The threshold. Where arrivals begin.",
       "description": "At the edge of the portfolio. A gas station, a threshold, the point of arrival and departure. In the village vision it becomes something entirely new.",
-      "investorNotes": "Corner property at the edge of downtown. High visibility. Unique adaptive reuse potential — energy hub, EV charging, community gateway. Conceptually the entrance to the village.",
+      "investorNotes": "Corner property at the edge of downtown. High visibility. Adaptive reuse as a modern shipping container oasis — solar-powered canopy with EV charging stations, shipping container sauna, cold plunge and hot tub, health food store and juice bar, micro-library. A scaled-back, sustainable rest-and-recharge destination. Conceptually the welcoming gateway to the village.",
+      "locations": [
+        { "id": "exterior", "name": "Exterior", "order": 1, "phases": { "past": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "present": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false }, "future": { "splatUrl": null, "photoUrl": null, "worldUrl": null, "ready": false } } }
+      ],
       "phases": {
         "current": {
           "label": "Present",
           "icon": "◉",
-          "description": "A corner property at the edge of downtown. Faded signage, cracked concrete — but the location is everything.",
-          "ready": false,
-          "comingSoonText": "Scan scheduled"
+          "description": "A corner property at the edge of downtown. Faded signage, cracked concrete, vintage pump islands overgrown with weeds. But the location is everything — this is the first thing you see when you arrive in Dunsmuir. It's the threshold.",
+          "photoUrl": "/buildings/energy-station/assets/current.png",
+          "ready": true
         },
         "historical": {
           "label": "Past",
           "icon": "◈",
-          "description": "In its heyday the station was the first point of contact for anyone arriving in Dunsmuir. It marked the threshold.",
-          "ready": false,
-          "comingSoonText": "Historical world generating"
+          "description": "In its heyday the station was the first point of contact for anyone arriving in Dunsmuir. Full-service attendants, the smell of gasoline and pine, mountain peaks visible over the canopy. It marked the threshold between the highway and the town. Every journey started or ended here.",
+          "photoUrl": "/buildings/energy-station/assets/historical.png",
+          "ready": true
         },
         "vision": {
           "label": "Vision",
           "icon": "◇",
-          "description": "The gateway to the village. Where the journey ends and the new story begins.",
-          "ready": false,
-          "comingSoonText": "The final vision — coming soon"
+          "description": "A modern shipping container oasis — solar-powered amenities under a sleek canopy, EV charging stations, a cedar-clad sauna, cold plunge and hot tub, a health food store and juice bar, and a cozy micro-library. A place to rest, relax, and energize on the go. The gateway to the village reimagined as a sustainable rest-and-recharge destination nestled in the mountains.",
+          "photoUrl": "/buildings/energy-station/assets/vision.png",
+          "ready": true
         }
       },
       "clue": {
         "hiddenIn": "vision",
         "type": "final",
-        "hint": "You have found all five. The village is revealed.",
+        "hint": "You have found all five. You have walked through every building, every era. The village is revealed — not as a place that was built, but as a place that is being born.",
         "answer": null,
         "unlocksBuilding": null,
         "unlocksMessage": "You have walked through every building. You have heard every story. Now you know what this place is asking to become.",

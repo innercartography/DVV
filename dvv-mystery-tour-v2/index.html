@@ -72,18 +72,40 @@
       </div>
     </div>
 
+    <!-- Mystery intro overlay -->
+    <div id="mystery-intro" class="hidden">
+      <div class="intro-content">
+        <div class="intro-symbol">◈</div>
+        <div class="intro-title">THE MYSTERY TOUR</div>
+        <div class="intro-text">
+          Five buildings. Five eras. Five clues hidden in time.<br>
+          Walk through each building — past, present, and vision.<br>
+          Find the clues. Unlock the next chapter.<br>
+          The village reveals itself only to those who look.
+        </div>
+        <button id="btn-begin-mystery">Begin The Journey</button>
+        <div class="intro-hint">Start at the Hotel California — the only door that's open.</div>
+      </div>
+    </div>
+
     <!-- Final reveal overlay -->
     <div id="final-reveal" class="hidden">
       <div id="reveal-content">
+        <div class="reveal-stars" aria-hidden="true"></div>
         <div id="reveal-title">THE VILLAGE IS REVEALED</div>
         <div id="reveal-text"></div>
-        <div id="reveal-map-full"></div>
+        <div id="reveal-buildings-summary"></div>
         <button id="btn-contact">Speak With The Visionary</button>
       </div>
     </div>
   </div>
 
   <div class="compass" aria-hidden="true">✦</div>
+
+  <!-- Audio toggle -->
+  <button id="audio-toggle" class="audio-btn" aria-label="Toggle ambient audio">
+    <span class="audio-icon">♪</span>
+  </button>
 
   <script type="module" src="/src/main.js"></script>
 </body>
