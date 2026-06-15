@@ -7,6 +7,15 @@
   <meta name="description" content="Dunsmuir Visionary Village — An interactive 3D knowledge graph connecting history, land, and future vision.">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
+  <style>
+    /* cross-link to the Mystery Tour sibling experience */
+    .cross-link{display:inline-block;pointer-events:auto;margin-top:1.4rem;
+      font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.18em;
+      text-transform:uppercase;color:#7fe9d8;text-decoration:none;
+      border:1px solid rgba(127,233,216,.35);padding:.55rem 1rem;border-radius:3px;
+      opacity:.85;transition:opacity .2s ease,background .2s ease,border-color .2s ease}
+    .cross-link:hover{opacity:1;background:rgba(127,233,216,.12);border-color:rgba(127,233,216,.7)}
+  </style>
 </head>
 <body>
   <canvas id="graph-canvas"></canvas>
@@ -64,6 +73,7 @@
     <div class="title-sub">Spatial Knowledge Graph</div>
     <h1><span class="cyan">Dunsmuir</span> <span class="gold">Visionary</span> Village</h1>
     <div class="title-hint">Click nodes to explore · Scroll to zoom · Drag to rotate</div>
+    <a class="cross-link" href="https://dvv-mystery-tour-v2.vercel.app/" rel="noopener">◈ Enter the Mystery Tour →</a>
   </div>
 
   <!-- XR Video (establishing shot for VR transitions) -->
